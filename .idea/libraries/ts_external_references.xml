@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="ts-external-references" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/node_modules/.pnpm/registry.npmmirror.com+@types+prop-types@15.7.8/node_modules/@types/prop-types/index.d.ts" />
+        <item url="file://$PROJECT_DIR$/node_modules/.pnpm/registry.npmmirror.com+@types+scheduler@0.16.4/node_modules/@types/scheduler/tracing.d.ts" />
+        <item url="file://$PROJECT_DIR$/node_modules/.pnpm/registry.npmmirror.com+csstype@3.1.2/node_modules/csstype/index.d.ts" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/node_modules/.pnpm/registry.npmmirror.com+@types+prop-types@15.7.8/node_modules/@types/prop-types/index.d.ts" />
+      <root url="file://$PROJECT_DIR$/node_modules/.pnpm/registry.npmmirror.com+@types+scheduler@0.16.4/node_modules/@types/scheduler/tracing.d.ts" />
+      <root url="file://$PROJECT_DIR$/node_modules/.pnpm/registry.npmmirror.com+csstype@3.1.2/node_modules/csstype/index.d.ts" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
