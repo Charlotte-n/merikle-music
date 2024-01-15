@@ -3,6 +3,8 @@ import styled from 'styled-components'
 export const RightSingersWrapper = styled.div`
   width: 100%;
   .button {
+    display: inline-block;
+    width: 80%;
     padding: 0 20px;
     button {
       padding: 5px 0;

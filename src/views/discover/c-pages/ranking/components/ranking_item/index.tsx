@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import { RankingItemWrapper } from '@/views/discover/c-pages/ranking/components/ranking_item/style.tex'
 import { List } from '@/views/discover/c-pages/ranking/services/type'
@@ -10,16 +10,15 @@ interface IProps {
   title: string
   rankingList: List[]
   getSongListId: (val: number) => void
+  songListId: number
 }
 
 const RankingItem: FC<IProps> = (props) => {
-  const [active, setActive] = useState(false)
-  const { title, rankingList, getSongListId } = props
-  const [rankingId, setRankingId] = useState(0)
+  const { title, rankingList, getSongListId, songListId } = props
   const handleSongListId = (val: number) => {
     getSongListId(val)
-    setRankingId(val)
   }
+
   return (
     <RankingItemWrapper>
       <div className="main_title">{title}</div>
@@ -30,7 +29,7 @@ const RankingItem: FC<IProps> = (props) => {
             key={rankingItem.id}
             onClick={() => handleSongListId(rankingItem.id)}
             style={
-              rankingItem.id == rankingId
+              rankingItem.id == songListId
                 ? { backgroundColor: '#e6e6e6' }
                 : { backgroundColor: '#F9F9F9' }
             }

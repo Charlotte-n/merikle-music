@@ -9,6 +9,7 @@ import {
 import { useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import { formatTime } from '@/utils/formate'
+import { useNavigate } from 'react-router-dom'
 
 interface IProps {
   children?: ReactNode
@@ -21,6 +22,10 @@ const SongList: FC<IProps> = () => {
       SongListDetail: state.songDetail.songDetail
     }
   }, shallowEqual)
+  const navigate = useNavigate()
+  const gotoLyricPage = (ids: string | number) => {
+    navigate('/lyric/detail?ids=' + ids)
+  }
 
   return (
     <SongListWrapper>
@@ -59,7 +64,12 @@ const SongList: FC<IProps> = () => {
                       <span>{index + 1}</span>
                       <span className="sprite_02 play"></span>
                     </td>
-                    <td className="ellipsis_1">{item.name}</td>
+                    <td
+                      className="ellipsis_1"
+                      onClick={() => gotoLyricPage(item.id)}
+                    >
+                      {item.name}
+                    </td>
                     <td>{formatTime(item.dt)}</td>
                     <td>小红</td>
                     <td

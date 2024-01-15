@@ -74,6 +74,7 @@ const recommendSlice = createSlice({
   reducers: {
     changeBannerAction(state, { payload }) {
       state.banners = payload
+      console.log(payload)
     },
     changeHotRecommendAction(state, { payload }) {
       state.hotRecommendSongs = payload

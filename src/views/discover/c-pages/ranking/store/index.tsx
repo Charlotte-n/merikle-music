@@ -14,9 +14,11 @@ export const fetchSongRankingListAction = createAsyncThunk(
 )
 interface SongRankingProps {
   rankingList: []
+  rankingId: number
 }
 const initialState: SongRankingProps = {
-  rankingList: []
+  rankingList: [],
+  rankingId: 0
 }
 const SongRankingSlice = createSlice({
   name: 'song-ranking',
@@ -24,6 +26,7 @@ const SongRankingSlice = createSlice({
   reducers: {
     changeRankingListAction(state, { payload }) {
       state.rankingList = payload
+      state.rankingId = payload[0].id
     }
   }
 })

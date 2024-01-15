@@ -8,8 +8,9 @@ export const RankingItemWrapper = styled.div`
   &:last-child {
     width: 280px;
   }
+  }
 
-  .pic {
+  .pic-recommend {
     position: absolute;
     display: flex;
     left: 10px;
@@ -19,9 +20,16 @@ export const RankingItemWrapper = styled.div`
       margin-right: 10px;
       width: 100px;
       height: 100px;
+      cursor: pointer;
     }
     .title {
       font-size: 16px;
+      .main_title {
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline black;
+        }
+      }
       .btn {
         display: inline-block;
         width: 22px;
@@ -70,6 +78,10 @@ export const RankingItemWrapper = styled.div`
           text-overflow: ellipsis;
           overflow: hidden;
           cursor: pointer;
+          &:hover {
+            text-decoration: underline;
+            text-decoration-color: black;
+          }
         }
       }
       .operate {

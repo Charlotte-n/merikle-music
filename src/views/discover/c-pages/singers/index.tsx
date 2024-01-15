@@ -54,6 +54,7 @@ const Singers: FC<IProps> = () => {
   return (
     <SingerWrapper className="wrap-v2">
       <SingerLeft
+        title={title[0]}
         getRightTitle={getRightTitle}
         getSingersParam={getSingersParam}
       ></SingerLeft>

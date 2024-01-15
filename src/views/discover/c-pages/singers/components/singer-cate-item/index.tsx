@@ -12,6 +12,7 @@ interface IProps {
   config: any
   getRightTitle: (title: string[]) => void
   getSingersParam: (val: any) => void
+  title: string
 }
 
 const SingerCateItem: FC<IProps> = (props) => {
@@ -27,6 +28,7 @@ const SingerCateItem: FC<IProps> = (props) => {
     area: -1,
     limit: 50
   })
+  const activeTitle = props.title === '' ? '推荐歌手' : props.title
   // @ts-ignore
   const dispatch = useAppDispatch()
   const handleCateClick = (type: number, area: number, title: string) => {
@@ -68,7 +70,7 @@ const SingerCateItem: FC<IProps> = (props) => {
           <li
             key={item.name}
             onClick={() => handleCateClick(item.type, config.area, item.name)}
-            className={item.name === title ? 'active' : ''}
+            className={item.name === activeTitle ? 'active' : ''}
           >
             <span>{item.name}</span>
           </li>

@@ -11,6 +11,7 @@ import {
 import { shallowEqual } from 'react-redux'
 import classNames from 'classnames'
 import { BannerControlWrapper } from '@/views/discover/c-pages/djradio/c-pages/dj-category/style'
+import { useNavigate, useNavigation } from 'react-router-dom'
 
 interface IProps {
   children?: ReactNode
@@ -42,6 +43,15 @@ const TopBanner: FC<IProps> = () => {
     bgImage += '?imageView&blur=40x20'
   }
   //endregion
+  //跳转到详情页面
+  const navigate = useNavigate()
+  const gotoDetail = (id: number | string) => {
+    if (id == '0') {
+      id = 2115522604
+    }
+    // navigation.
+    navigate('/lyric/detail?id=' + id)
+  }
   return (
     <div>
       <BannerWrapper
@@ -60,7 +70,11 @@ const TopBanner: FC<IProps> = () => {
             >
               {banner.map((item) => {
                 return (
-                  <div key={item.imageUrl} className="banner-item">
+                  <div
+                    key={item.imageUrl}
+                    className="banner-item"
+                    onClick={() => gotoDetail(item.encodeId)}
+                  >
                     <img src={item.imageUrl} alt="" />
                   </div>
                 )

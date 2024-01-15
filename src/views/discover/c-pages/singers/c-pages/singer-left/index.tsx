@@ -8,16 +8,18 @@ interface IProps {
   children?: ReactNode
   getRightTitle: (title: string[]) => void
   getSingersParam: (val: any) => void
+  title: string
 }
 
 const SingerLeft: FC<IProps> = (props) => {
-  const { getRightTitle, getSingersParam } = props
+  const { getRightTitle, getSingersParam, title } = props
   return (
     <SingerLeftWrapper>
       {SingerCategoryConfig.map((item) => {
         return (
           <div key={item.title} className="singer_cate">
             <SingerCateItem
+              title={title}
               config={item}
               getRightTitle={getRightTitle}
               getSingersParam={getSingersParam}
