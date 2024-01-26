@@ -16,7 +16,14 @@ const RankingDetail: FC<IProps> = (props) => {
     <RankingDetailWrapper>
       <RankingDetailTop></RankingDetailTop>
       <SongList></SongList>
-      <Comment getPageIndex={getPageIndex}></Comment>
+      <Comment
+        getPageIndex={getPageIndex}
+        param={{
+          t: 0,
+          type: 2,
+          id: 1
+        }}
+      ></Comment>
     </RankingDetailWrapper>
   )
 }

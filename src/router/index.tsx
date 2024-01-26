@@ -17,6 +17,7 @@ const MoreSongList = lazy(
   () => import('@/views/singers-list/c-pages/more-songlist/index')
 )
 const SingerDetail = lazy(() => import('@/views/singer-detail/index'))
+const AlbumDetail = lazy(() => import('@/views/album-detail/index'))
 const routes: RouteObject[] = [
   {
     path: '/',
@@ -83,6 +84,10 @@ const routes: RouteObject[] = [
   {
     path: '/singer/detail',
     element: <SingerDetail></SingerDetail>
+  },
+  {
+    path: '/album/detail',
+    element: <AlbumDetail></AlbumDetail>
   }
 ]
 

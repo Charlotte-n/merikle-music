@@ -41,12 +41,12 @@ export const DjCategoryWrapper = styled.div`
   }
 `
 interface CategoryImgItemProps {
-  imgUrl: string
+  imgurl: string
 }
 export const CategoryImgItemWrapper = styled.div<CategoryImgItemProps>`
   width: 48px;
   height: 48px;
-  background-image: url(${(props) => props.imgUrl});
+  background-image: url(${(props) => props.imgurl});
 `
 export const BannerControlWrapper = styled.div`
   position: relative;

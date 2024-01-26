@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import type { AxiosInstance } from 'axios'
 import type { HYRequestConfig } from './type'
+import store from '@/store'
 
 // 拦截器: 蒙版Loading/token/修改配置
 
@@ -25,6 +26,9 @@ class HYRequest {
     this.instance.interceptors.request.use(
       (config) => {
         // loading/token
+        if (store.getState().LoginStore.userInfo.cookie) {
+          config.headers.cookies = store.getState().LoginStore.userInfo.cookie
+        }
         return config
       },
       (err) => {

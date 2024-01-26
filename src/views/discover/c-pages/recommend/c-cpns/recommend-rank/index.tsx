@@ -17,7 +17,10 @@ const RecommendRanking: FC<IProps> = () => {
   })
   return (
     <RankingWrapper>
-      <CommendHeader title="榜单" moreLink="/discover/ranking"></CommendHeader>
+      <CommendHeader
+        title="榜单"
+        moreLink="/discover/ranking?id=19723756"
+      ></CommendHeader>
       {/*  背景图片*/}
       <div className="ranking_content">
         {/*  每一列榜单内容*/}

@@ -8,8 +8,6 @@ import {
   CategoryImgItemWrapper,
   DjCategoryWrapper
 } from '@/views/discover/c-pages/djradio/c-pages/dj-category/style'
-import { BannerControl } from '@/views/discover/c-pages/recommend/c-cpns/top-banner/style'
-import classNames from 'classnames'
 import { useNavigate, useParams } from 'react-router-dom'
 
 interface IProps {
@@ -54,9 +52,9 @@ const DjRadioCategory: FC<IProps> = () => {
         >
           {Array(group)
             .fill(0)
-            .map((_, index) => {
+            .map((item, index) => {
               return (
-                <div key={index} className={'category_group'}>
+                <div key={item} className={'category_group'}>
                   {DjCategory.slice(index * PAGE_SIZE, getSize(index + 1)).map(
                     (item, index) => {
                       return (
@@ -66,7 +64,7 @@ const DjRadioCategory: FC<IProps> = () => {
                           onClick={() => handleGoToPage(item.id)}
                         >
                           <CategoryImgItemWrapper
-                            imgUrl={item.picWebUrl}
+                            imgurl={item.picWebUrl}
                           ></CategoryImgItemWrapper>
                           <span style={{ color: '#888888' }}>{item.name}</span>
                         </div>

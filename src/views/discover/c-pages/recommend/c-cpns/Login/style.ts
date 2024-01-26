@@ -57,6 +57,7 @@ export const LoginTop = styled.div`
   }
 `
 export const LoginBottom = styled.div`
+  padding-bottom: 20px;
   .bottom {
     margin-top: 50px;
     text-align: center;
@@ -65,6 +66,40 @@ export const LoginBottom = styled.div`
       border: 1px solid black;
       border-radius: 20px;
       background-color: white;
+    }
+  }
+`
+
+export const PhoneCodeWrapper = styled.div``
+export const PhoneCodeTop = styled.div`
+  padding: 20px;
+  .ant-space-item {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    .ant-space {
+      width: 80%;
+    }
+  }
+  .passwordLogin {
+    &:hover {
+      text-decoration: underline #666;
+    }
+  }
+`
+
+export const PhoneCodeBottom = styled.div`
+  padding-left: 10px;
+  background-color: #f7f7f7;
+  height: 50px;
+  text-align: left;
+  color: #0c72c3;
+  line-height: 50px;
+  font-size: 12px;
+  cursor: pointer;
+  span {
+    &:hover {
+      text-decoration: underline #0c72c3;
     }
   }
 `

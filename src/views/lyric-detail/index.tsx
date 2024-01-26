@@ -48,7 +48,14 @@ const LyricDetailPage: FC<IProps> = (props) => {
         <LyricDetailLeftWrapper>
           {/*上面的歌曲的歌词*/}
           <LyricSong></LyricSong>
-          <Comment getPageIndex={getPageIndex}></Comment>
+          <Comment
+            getPageIndex={getPageIndex}
+            param={{
+              t: 0,
+              type: 0,
+              id: Number(ids)
+            }}
+          ></Comment>
         </LyricDetailLeftWrapper>
         <LyricDetailRightWrapper>
           {/*包含这首歌的歌单*/}

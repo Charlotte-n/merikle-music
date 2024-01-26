@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import { HotArchoItemWrapper } from '@/views/discover/c-pages/recommend/components/hotarcho-item/style'
+import { useNavigate } from 'react-router-dom'
 
 interface IProps {
   children?: ReactNode
@@ -8,9 +9,13 @@ interface IProps {
 }
 
 const HotArchoItem: FC<IProps> = (props) => {
+  const navigate = useNavigate()
+  const gotoSingerDetail = () => {
+    navigate(`/singer/list?id=${itemData.id}`)
+  }
   const { itemData } = props
   return (
-    <HotArchoItemWrapper>
+    <HotArchoItemWrapper onClick={() => gotoSingerDetail()}>
       <div className="pic">
         <img src={itemData.img1v1Url} alt="" />
       </div>

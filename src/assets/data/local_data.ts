@@ -44,7 +44,7 @@ export const discoverMenu = [
   },
   {
     title: '排行榜',
-    link: '/discover/ranking'
+    link: '/discover/ranking?id=19723756'
   },
   {
     title: '歌单',

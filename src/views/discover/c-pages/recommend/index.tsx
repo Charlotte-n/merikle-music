@@ -8,13 +8,12 @@ import {
 import TopBanner from '@/views/discover/c-pages/recommend/c-cpns/top-banner'
 import { ContentWrapper } from '@/views/discover/style'
 import HotRecommend from '@/views/discover/c-pages/recommend/c-cpns/hot-recommend'
-import { shallowEqual } from 'react-redux'
+import { shallowEqual, useDispatch } from 'react-redux'
 import NewAlbums from '@/views/discover/c-pages/recommend/c-cpns/new-albums'
 import RecommendRank from '@/views/discover/c-pages/recommend/c-cpns/recommend-rank'
 import Login from '@/views/discover/c-pages/recommend/c-cpns/Login'
 import RightSingers from '@/views/discover/c-pages/recommend/c-cpns/right_singers'
 import HotArchor from '@/views/discover/c-pages/recommend/c-cpns/hot-archor'
-import { useParams } from 'react-router-dom'
 
 interface IProps {
   children?: ReactNode
@@ -23,7 +22,7 @@ interface IProps {
 const Recommend: FC<IProps> = () => {
   //获取轮播图的数据,发起action获取数据
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  //@ts-ignore
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(fetchRecommendDataAction())

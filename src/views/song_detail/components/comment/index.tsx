@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import {
   CommentContent,
@@ -8,15 +8,34 @@ import {
 } from '@/views/song_detail/components/comment/style'
 import TextArea from 'antd/es/input/TextArea'
 import UserComment from '@/views/song_detail/components/user-comment'
-import { useAppSelector } from '@/store'
+import { shallowEqualApp, useAppSelector } from '@/store'
 import { Pagination } from 'antd'
+import { sendCommentApi, sendCommentType } from '@/api'
 
 interface IProps {
   children?: ReactNode
   getPageIndex: (val: number) => void
+  param: {
+    t: number
+    type: number
+    id: number
+  }
 }
 
 const Comment: FC<IProps> = (props) => {
+  const { profile } = useAppSelector((state) => {
+    return {
+      profile: state.LoginStore.profile
+    }
+  }, shallowEqualApp)
+  const [content, setContent] = useState('')
+  //发评论
+  const { param } = props
+  const sendComment = async () => {
+    const res = await sendCommentApi({ ...param, content })
+    console.log(res)
+  }
+  const { avatarUrl } = profile
   const { getPageIndex } = props
   const { commentList } = useAppSelector((state) => {
     return {
@@ -26,16 +45,15 @@ const Comment: FC<IProps> = (props) => {
   const handlePageIndex = (val: number) => {
     getPageIndex(val)
   }
-  useEffect(() => {
-    console.log('我是评论list', commentList.comments)
-    return () => {}
-  }, [])
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    console.log('Change:', e.target.value)
+    setContent(e.target.value)
   }
+  useEffect(() => {
+    console.log(profile)
+  })
   return (
     <CommentWrapper>
       <CommentHeader>
@@ -44,7 +62,7 @@ const Comment: FC<IProps> = (props) => {
       </CommentHeader>
       <CommentContent>
         <div className="img">
-          <img src="" alt="" />
+          <img src={avatarUrl} alt="" />
         </div>
         <div className="text">
           <TextArea
@@ -55,7 +73,9 @@ const Comment: FC<IProps> = (props) => {
             style={{ height: '70px' }}
           />
           <div className="button">
-            <button className="btn">评论</button>
+            <button className="btn" onClick={() => sendComment()}>
+              评论
+            </button>
           </div>
         </div>
         {/*  精彩评论组件*/}

@@ -10,9 +10,9 @@ interface IThunkState {
 //创建异步的片段
 export const fetchCurrentSongAction = createAsyncThunk<
   void,
-  number,
+  string,
   IThunkState
->('currentSong', async (id: number, { dispatch, getState }) => {
+>('currentSong', async (id: string, { dispatch, getState }) => {
   //播放一首歌的时候，两种情况(请求歌曲播放的时候)
   const playSongList = (getState() as any).player.playSongList
   const findIndex = playSongList.findIndex((item: any) => item.id === id)

@@ -15,13 +15,27 @@ const RankingItem: FC<IProps> = (props) => {
   const gotoLyricPage = (ids: string | number) => {
     navigate('/lyric/detail?ids=' + ids)
   }
+  //跳转到歌单相应的页面
+  const gotoSongListPage = (id: number) => {
+    navigate('/discover/ranking?id=' + id)
+  }
   return (
     <RankingItemWrapper>
       {/*  图片*/}
       <div className="pic-recommend">
-        <img src={rankingSong?.coverImgUrl} alt="" className="image" />
+        <img
+          src={rankingSong?.coverImgUrl}
+          alt=""
+          className="image"
+          onClick={() => gotoSongListPage(rankingSong.id)}
+        />
         <div className="title">
-          <h4 className="main_title">{rankingSong?.name}</h4>
+          <h4
+            className="main_title"
+            onClick={() => gotoSongListPage(rankingSong.id)}
+          >
+            {rankingSong?.name}
+          </h4>
           <button className="btn sprite_02 play"></button>
           <button className="btn sprite_02 favor"></button>
         </div>
@@ -48,7 +62,9 @@ const RankingItem: FC<IProps> = (props) => {
           )
         })}
         <div className="all">
-          <Link to="\">查看全部 &gt;</Link>
+          <span onClick={() => gotoSongListPage(rankingSong.id)}>
+            查看全部 &gt;
+          </span>
         </div>
       </div>
     </RankingItemWrapper>

@@ -43,7 +43,6 @@ const DjOtherPage: FC<IProps> = () => {
     )
   }
   useEffect(() => {
-    console.log(DjRanking)
     return () => {}
   }, [])
 
@@ -82,7 +81,7 @@ const DjOtherPage: FC<IProps> = () => {
         <main>
           {DjRanking.map((item, index) => {
             return (
-              <div key={index} className={'djRankingContent'}>
+              <div key={item.name} className={'djRankingContent'}>
                 <DjRankingItem rankingItem={item}></DjRankingItem>
               </div>
             )

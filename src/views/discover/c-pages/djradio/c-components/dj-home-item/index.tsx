@@ -6,14 +6,13 @@ interface IProps {
   children?: ReactNode
   categoryItem: any
 }
-const list = [1, 2, 3, 4]
 const DjHomeItem: FC<IProps> = (props) => {
   const { categoryItem } = props
   return (
     <DjHomeItemWrapper>
       <header>
         <div>
-          {categoryItem[0].category}
+          {/*{categoryItem[0].category}*/}
           <span></span>
           电台
         </div>

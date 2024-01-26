@@ -34,7 +34,11 @@ const SongList: FC<IProps> = () => {
           <h2>歌曲列表</h2>
           <span>{SongListTable?.length}首歌</span>
         </div>
-        <div className="songlist_right">
+
+        <div
+          className="songlist_right"
+          style={{ display: SongListDetail.playCount ? 'block' : 'none' }}
+        >
           <span className="play_songcount">播放:</span>
           <div>
             <span className="count">{SongListDetail?.playCount}</span>
@@ -61,11 +65,13 @@ const SongList: FC<IProps> = () => {
                 return (
                   <tr key={item.name}>
                     <td style={{ textAlign: 'center' }}>
-                      <span>{index + 1}</span>
-                      <span className="sprite_02 play"></span>
+                      <div className={'first'}>
+                        <span>{index + 1}</span>
+                        <span className="sprite_02 play"></span>
+                      </div>
                     </td>
                     <td
-                      className="ellipsis_1"
+                      className="ellipsis_1 song_name"
                       onClick={() => gotoLyricPage(item.id)}
                     >
                       {item.name}

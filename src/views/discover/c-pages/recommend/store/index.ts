@@ -12,6 +12,7 @@ import type {
   singleHotRecommendSong
 } from '@/views/discover/c-pages/recommend/services/types'
 
+//手机登录
 //异步获取轮播图数据
 export const fetchRecommendDataAction = createAsyncThunk(
   'banners',
@@ -58,6 +59,9 @@ interface IRecommendState {
   newsAlbumSongs: any[]
   rankingSongs: Playlist[]
   Artilist: any[]
+  loginKey: number | string
+  code: string
+  loginStatus: number | string
 }
 //仓库保存数据
 const initialState: IRecommendState = {
@@ -65,7 +69,10 @@ const initialState: IRecommendState = {
   hotRecommendSongs: [],
   newsAlbumSongs: [],
   rankingSongs: [],
-  Artilist: []
+  Artilist: [],
+  loginKey: 1,
+  code: '',
+  loginStatus: 801
 }
 //创建切片
 const recommendSlice = createSlice({
@@ -87,6 +94,15 @@ const recommendSlice = createSlice({
     },
     changeArtilist(state, { payload }) {
       state.Artilist = payload
+    },
+    changeLoginKey(state, { payload }) {
+      state.loginKey = payload
+    },
+    changeCode(state, { payload }) {
+      state.code = payload
+    },
+    changeLoginStatus(state, { payload }) {
+      state.loginStatus = payload
     }
   }
 })
@@ -95,6 +111,9 @@ export const {
   changeHotRecommendAction,
   changeNewAlbumSongs,
   changeRankingSongs,
-  changeArtilist
+  changeArtilist,
+  changeLoginKey,
+  changeCode,
+  changeLoginStatus
 } = recommendSlice.actions
 export default recommendSlice.reducer

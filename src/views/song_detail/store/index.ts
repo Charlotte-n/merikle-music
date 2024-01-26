@@ -8,8 +8,37 @@ import {
 } from '@/views/song_detail/services'
 import { CommentListType, HotComment } from '@/views/song_detail/services/type'
 import { getLyricCommentApi } from '@/views/lyric-detail/services'
+import { getAlbumComment, getAlbumsDetail } from '@/views/album-detail/services'
+import { Simulate } from 'react-dom/test-utils'
+import error = Simulate.error
 
 //异步请求
+//获取专辑里面的歌单
+export const fetchAlbumDetailSongListAction = createAsyncThunk(
+  'album_detail_song',
+  (id: number | string, { dispatch }) => {
+    getAlbumsDetail(id)
+      .then((res) => {
+        dispatch(changeHotSongListTableAction(res.songs))
+      })
+      .catch((error) => {
+        console.log(error, '出错了')
+      })
+  }
+)
+//获取专辑评论
+export const fetchAlbumCommentAction = createAsyncThunk(
+  'album_comment',
+  (result: { id: number | string; offset: any }, { dispatch }) => {
+    getAlbumComment(result.id)
+      .then((res) => {
+        dispatch(changeCommentListAction(res))
+      })
+      .catch((error) => {
+        console.log(error, '未知错误')
+      })
+  }
+)
 export const fetchHotSongListDataAction = createAsyncThunk(
   'hot_song_list',
   async (id: string | number, { dispatch }) => {
@@ -86,7 +115,6 @@ const songDetailSlice = createSlice({
   reducers: {
     changeHotSongListAction(state, { payload }) {
       state.hotSongList = payload
-      console.log(state.hotSongList)
     },
     changeHotSongListTableAction(state, { payload }) {
       state.hotSongListTable = payload

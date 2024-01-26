@@ -10,8 +10,7 @@ import {
 } from '@/views/discover/c-pages/recommend/c-cpns/top-banner/style'
 import { shallowEqual } from 'react-redux'
 import classNames from 'classnames'
-import { BannerControlWrapper } from '@/views/discover/c-pages/djradio/c-pages/dj-category/style'
-import { useNavigate, useNavigation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 interface IProps {
   children?: ReactNode

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const SongListWrapper = styled.div`
-  width: 95%;
+  width: 100%;
   margin: auto;
 `
 
@@ -71,15 +71,23 @@ export const SongListTableWrapper = styled.div`
           height: 30px;
           &:first-child {
             padding: 0 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            span:first-child {
-              display: inline-block;
-              color: #999999;
+            line-height: 30px;
+            .first {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              span:first-child {
+                margin-right: 5px;
+                display: inline-block;
+                color: #999999;
+                width: 15px;
+              }
             }
           }
           &:nth-child(2) {
+            display: inline-block;
+            line-height: 30px;
+            width: 200px;
             &:hover {
               cursor: pointer;
               text-decoration: underline;

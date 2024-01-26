@@ -5,7 +5,6 @@ import CommendHeader from '@/components/app-header-w1'
 import { Carousel } from 'antd'
 import { useAppSelector } from '@/store'
 import NewsItem from '@/components/news-item'
-import newAlbums from '@/views/discover/c-pages/recommend/c-cpns/new-albums/index'
 
 interface IProps {
   children?: ReactNode

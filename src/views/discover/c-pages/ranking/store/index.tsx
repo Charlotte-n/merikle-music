@@ -1,8 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import {
-  getRankingDetailApi,
-  getRankingListApi
-} from '@/views/discover/c-pages/ranking/services'
+import { getRankingListApi } from '@/views/discover/c-pages/ranking/services'
 
 export const fetchSongRankingListAction = createAsyncThunk(
   'song-ranking-list',

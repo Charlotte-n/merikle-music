@@ -17,6 +17,37 @@ import AlbumsSlice from '@/views/discover/c-pages/songs/store/index'
 import AppHeaderSlice from '@/components/app-header/store/index'
 import LyricDetailSlice from '@/views/lyric-detail/store/index'
 import SingleSingerDetailSlice from '@/views/singers-list/store/index'
+import AlbumDetailSlice from '@/views/album-detail/store/index'
+import LoginStore from '@/views/discover/c-pages/recommend/c-cpns/Login/store/index'
+//持久化
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER
+} from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+
+const persistConfig = {
+  key: 'userInfo',
+  storage,
+  whitelist: ['userInfo']
+}
+const DjPersistConfig = {
+  key: 'djradio',
+  storage
+}
+const SingersPersistConfig = {
+  key: 'singers',
+  storage
+}
+const LoginStorePersist = persistReducer(persistConfig, LoginStore)
+const DjRadioStorePersist = persistReducer(DjPersistConfig, DjRadioSlice)
+const SingersStorePersist = persistReducer(SingersPersistConfig, SingersSlice)
 //一些仓库片段
 const store = configureStore({
   reducer: {
@@ -26,13 +57,21 @@ const store = configureStore({
     songDetail: songDetailSlice,
     albumsSongList: albumsSongListSlice,
     songRankingSlice: SongRankingSlice,
-    DjRadioSlice: DjRadioSlice,
-    SingersSlice: SingersSlice,
+    DjRadioSlice: DjRadioStorePersist,
+    SingersSlice: SingersStorePersist,
     AlbumsSlice: AlbumsSlice,
     AppHeaderSlice: AppHeaderSlice,
     LyricDetailSlice: LyricDetailSlice,
-    SingleSingerDetailSlice: SingleSingerDetailSlice
-  }
+    SingleSingerDetailSlice: SingleSingerDetailSlice,
+    AlbumDetailSlice: AlbumDetailSlice,
+    LoginStore: LoginStorePersist
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      }
+    })
 })
 // const state = store.getState()
 // type StateType = typeof state
@@ -44,3 +83,4 @@ export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector
 export const useAppDispatch: (changeMessage: any) => DispatchType = useDispatch
 export const shallowEqualApp = shallowEqual
 export default store
+export const persistor = persistStore(store)

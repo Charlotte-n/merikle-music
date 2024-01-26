@@ -2,21 +2,21 @@ import React, { memo, useEffect, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import { RankingItemWrapper } from '@/views/discover/c-pages/ranking/components/ranking_item/style.tex'
 import { List } from '@/views/discover/c-pages/ranking/services/type'
-import rankingItem from '@/views/discover/c-pages/recommend/components/ranking-item'
-import { Skeleton } from 'antd'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 interface IProps {
   children?: ReactNode
   title: string
   rankingList: List[]
-  getSongListId: (val: number) => void
-  songListId: number
 }
 
 const RankingItem: FC<IProps> = (props) => {
-  const { title, rankingList, getSongListId, songListId } = props
+  const { title, rankingList } = props
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const songListId = searchParams.get('id') as number | string
   const handleSongListId = (val: number) => {
-    getSongListId(val)
+    navigate('/discover/ranking?id=' + val)
   }
 
   return (

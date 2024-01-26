@@ -62,3 +62,97 @@ export function ArtistListApi(limit = 30) {
     }
   })
 }
+
+/**
+ * 获取key
+ */
+export const getLoginKey = () => {
+  return hyRequest.get({
+    url: '/login/qr/key/' + new Date()
+  })
+}
+
+/**
+ * 获取code
+ * @param key
+ */
+export const getLoginCode = (key: string) => {
+  return hyRequest.get({
+    url: '/login/qr/create?key=' + key + '/' + new Date()
+  })
+}
+
+/**
+ * 获取扫码状态
+ * @param key
+ */
+export const checkCodeStatus = (key: string) => {
+  return hyRequest.get({
+    url: '/login/qr/check/time' + new Date() + '?key=' + key
+  })
+}
+
+/**
+ * 手机账号密码登录
+ * @param phone
+ * @param password
+ * @param captcha
+ * @constructor
+ */
+interface ParamType {
+  phone: string
+  password?: string
+  captcha?: string
+}
+export const PhoneLoginAxios = (Param: ParamType) => {
+  return hyRequest.post({
+    url: '/login/cellphone',
+    params: {
+      phone: Param.phone,
+      password: Param.password,
+      captcha: Param.captcha
+    }
+  })
+}
+
+/**
+ * 获取验证码
+ * @param phone
+ */
+export const getPhoneCode = (phone: string | number) => {
+  return hyRequest.post({
+    url: '/captcha/sent?time=' + new Date(),
+    params: {
+      phone
+    }
+  })
+}
+/**
+ * 检验验证码是否正确
+ * @param phone
+ * @param captcha
+ */
+
+export const verifyPhoneCode = (
+  phone: string | number,
+  captcha: string | number
+) => {
+  return hyRequest.get({
+    url: '/captcha/verify',
+    params: {
+      phone,
+      captcha
+    }
+  })
+}
+
+/**
+ * 游客登录
+ * @constructor
+ */
+
+export const PassByLoginApi = () => {
+  return hyRequest.get({
+    url: '/register/anonimous?time=' + new Date()
+  })
+}

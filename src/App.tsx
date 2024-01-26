@@ -14,7 +14,7 @@ function App() {
   // @ts-ignore
   const dispatch = useAppDispatch()
   useEffect(() => {
-    dispatch(fetchCurrentSongAction(1842025914))
+    dispatch(fetchCurrentSongAction('1842025914'))
   }, [])
 
   return (

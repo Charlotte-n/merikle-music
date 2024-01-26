@@ -14,7 +14,7 @@ export const getSongDetail = (id: any) => {
  * 获取歌词
  * @param id
  */
-export const getLyric = (id: number) => {
+export const getLyric = (id: string) => {
   return hyRequest.get({
     url: `/lyric?id=${id}`
   })

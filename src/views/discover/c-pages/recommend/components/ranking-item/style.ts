@@ -116,6 +116,11 @@ export const RankingItemWrapper = styled.div`
       position: absolute;
       bottom: -138px;
       right: 70px;
+      span{
+        cursor: pointer;
+        &:hover{
+          text-decoration: underline black;
+        }
     }
   }
 `

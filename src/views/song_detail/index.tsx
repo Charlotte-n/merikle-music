@@ -13,6 +13,7 @@ import {
 } from '@/views/song_detail/store'
 import { useAppDispatch } from '@/store'
 import { useSearchParams } from 'react-router-dom'
+import { sendCommentType } from '@/api'
 
 interface IProps {
   children?: ReactNode
@@ -21,7 +22,7 @@ interface IProps {
 const SongDetail: FC<IProps> = () => {
   const [pageIndex, setPageIndex] = useState(1)
   const [search] = useSearchParams()
-  const songId = search.get('id')
+  const songId: string = search.get('id') as string
   const getPageIndex = (val: number) => {
     setPageIndex(val)
   }
@@ -31,13 +32,17 @@ const SongDetail: FC<IProps> = () => {
     dispatch(fetchHotSongListDataAction(songId as string))
     dispatch(
       fetchCommentListAction({
-        id: Number(songId) == 0 ? 19723756 : songId,
+        id: Number(songId) == 0 ? '19723756' : songId,
         offset: (pageIndex - 1) * 50
       })
     )
     return () => {}
   }, [pageIndex, songId])
-
+  const sendCommentParam = {
+    t: 1,
+    type: 2,
+    id: Number(songId)
+  }
   return (
     <SongDetailWrapper>
       <NavBar></NavBar>
@@ -46,7 +51,10 @@ const SongDetail: FC<IProps> = () => {
           <LyricSong></LyricSong>
           <SongList></SongList>
           {/*  评论组件*/}
-          <Comment getPageIndex={getPageIndex}></Comment>
+          <Comment
+            getPageIndex={getPageIndex}
+            param={sendCommentParam}
+          ></Comment>
         </div>
         <div className="right">
           <LoveSongList></LoveSongList>

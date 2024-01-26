@@ -3,17 +3,20 @@ import ReactDOM from 'react-dom/client'
 import 'normalize.css'
 import './assets/css/index.scss'
 import App from './App'
-import store from '@/store'
-import { HashRouter } from 'react-router-dom'
+import store, { persistor } from '@/store'
+import { BrowserRouter, HashRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/es/integration/react'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <HashRouter>
-      <App />
-    </HashRouter>
+    <PersistGate loading={null} persistor={persistor}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </PersistGate>
   </Provider>
 
   // </React.StrictMode>

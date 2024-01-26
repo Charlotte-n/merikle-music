@@ -30,6 +30,10 @@ export const NewsItemWrapper = styled.div`
       width: 118px;
       white-space: nowrap;
       overflow: hidden;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline black;
+      }
     }
   }
 `

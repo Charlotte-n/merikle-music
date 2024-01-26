@@ -1,30 +1,36 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect } from 'react'
 import type { FC, ReactNode } from 'react'
-import {
-  LoginBottom,
-  LoginTop,
-  LoginWrapper
-} from '@/views/discover/c-pages/recommend/c-cpns/Login/style'
-import { Modal } from 'antd'
+import { LoginWrapper } from '@/views/discover/c-pages/recommend/c-cpns/Login/style'
+
+import ScanLogin from '@/views/discover/c-pages/recommend/c-cpns/Login/c-components/scan-login/scan-login'
+import { changeModelOpenAction } from '@/views/discover/c-pages/recommend/c-cpns/Login/store'
+import { useAppSelector } from '@/store'
+import PhoneCodeLogin from '@/views/discover/c-pages/recommend/c-cpns/Login/c-components/phone-code'
+import PhonePasswordLogin from '@/views/discover/c-pages/recommend/c-cpns/Login/c-components/phone-password'
+import { useDispatch } from 'react-redux'
 
 interface IProps {
   children?: ReactNode
 }
 
 const Login: FC<IProps> = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const showModal = () => {
-    setIsModalOpen(true)
+  const dispatch = useDispatch()
+  const { isModalOpen, isPhoneModelOpen, isPhonePassWordOpen } = useAppSelector(
+    (state) => {
+      return {
+        isModalOpen: state.LoginStore.isModelOpen,
+        isPhoneModelOpen: state.LoginStore.isPhoneModelOpen,
+        isPhonePassWordOpen: state.LoginStore.isPhonePassWordOpen
+      }
+    }
+  )
+  const showModal = async () => {
+    dispatch(changeModelOpenAction(true))
+    console.log(isModalOpen)
   }
 
-  const handleOk = () => {
-    setIsModalOpen(false)
-  }
-
-  const handleCancel = () => {
-    setIsModalOpen(false)
-  }
+  //获取二维码
+  useEffect(() => {}, [])
   return (
     <LoginWrapper>
       <div className="login_content">
@@ -32,40 +38,13 @@ const Login: FC<IProps> = () => {
           登录网易云音乐,可以享受无限收藏的乐趣,并且无线同步到手机
         </div>
         <div className="login">
-          <button className="button" onClick={showModal}>
+          <button className="button" onClick={() => showModal()}>
             用户登录
           </button>
-          <Modal
-            title="登录"
-            open={isModalOpen}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            footer={false}
-          >
-            <LoginTop>
-              <div className="left">
-                <img
-                  src="https://p5.music.126.net/obj/wo3DlcOGw6DClTvDisK1/9643571155/525c/faac/2dc6/fe695c03c7c358ddaa4651736b26a55f.png"
-                  alt=""
-                />
-              </div>
-              <div className="right">
-                <div className="scannerCode">扫码登录</div>
-                <img src="" alt="" />
-                <div>
-                  <span>使用</span>
-                  <a href="/">网易云音乐APP</a>
-                  <span>扫码登录</span>
-                </div>
-              </div>
-            </LoginTop>
-            <LoginBottom>
-              <div className="bottom">
-                <button className="other">选择其他登录模式</button>
-              </div>
-            </LoginBottom>
-          </Modal>
         </div>
+        {isModalOpen && <ScanLogin></ScanLogin>}
+        {isPhoneModelOpen && <PhoneCodeLogin></PhoneCodeLogin>}
+        {isPhonePassWordOpen && <PhonePasswordLogin></PhonePasswordLogin>}
       </div>
     </LoginWrapper>
   )
