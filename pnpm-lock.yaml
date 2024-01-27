@@ -42,8 +42,8 @@ dependencies:
     specifier: ^5.10.0
     version: 5.10.0(moment@2.29.4)(react-dom@18.2.0)(react@18.2.0)
   axios:
-    specifier: ^1.5.1
-    version: 1.5.1
+    specifier: ^1.6.0
+    version: 1.6.0
   classnames:
     specifier: ^2.3.2
     version: 2.3.2
@@ -3568,12 +3568,12 @@ packages:
     resolution: {integrity: sha512-/dlp0fxyM3R8YW7MFzaHWXrf4zzbr0vaYb23VBFCl83R7nWNPg/yaQw2Dc8jzCMmDVLhSdzH8MjrsuIUuvX+6g==}
     engines: {node: '>=4'}
 
-  /axios@1.5.1:
-    resolution: {integrity: sha512-Q28iYCWzNHjAm+yEAot5QaAMxhMghWLFVf7rRdwhUI+c2jix2DUXjAHXVi+s1ibs3mjPO/cCgbA++3BjD0vP/A==}
+  /axios@1.6.0:
+    resolution: {integrity: sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==}
     dependencies:
       follow-redirects: 1.15.3
-      form-data: 4.0.0
-      proxy-from-env: 1.1.0
+      form-data: r2.cnpmjs.org/form-data@4.0.0
+      proxy-from-env: r2.cnpmjs.org/proxy-from-env@1.1.0
     transitivePeerDependencies:
       - debug
     dev: false
@@ -5537,23 +5537,6 @@ packages:
       typescript: 4.9.5
       webpack: 5.88.2
 
-  /form-data@3.0.1:
-    resolution: {integrity: sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==}
-    engines: {node: '>= 6'}
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      mime-types: 2.1.35
-
-  /form-data@4.0.0:
-    resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
-    engines: {node: '>= 6'}
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      mime-types: 2.1.35
-    dev: false
-
   /forwarded@0.2.0:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
@@ -6863,7 +6846,7 @@ packages:
       decimal.js: 10.4.3
       domexception: 2.0.1
       escodegen: 2.1.0
-      form-data: 3.0.1
+      form-data: r2.cnpmjs.org/form-data@3.0.1
       html-encoding-sniffer: 2.0.1
       http-proxy-agent: 4.0.1
       https-proxy-agent: 5.0.1
@@ -8402,10 +8385,6 @@ packages:
     dependencies:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
-
-  /proxy-from-env@1.1.0:
-    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
-    dev: false
 
   /psl@1.9.0:
     resolution: {integrity: sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==}
@@ -11111,6 +11090,12 @@ packages:
       color-convert: r2.cnpmjs.org/color-convert@2.0.1
     dev: false
 
+  r2.cnpmjs.org/asynckit@0.4.0:
+    resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==, tarball: https://r2.cnpmjs.org/asynckit/-/asynckit-0.4.0.tgz}
+    name: asynckit
+    version: 0.4.0
+    dev: false
+
   r2.cnpmjs.org/chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==, tarball: https://r2.cnpmjs.org/chalk/-/chalk-4.1.2.tgz}
     name: chalk
@@ -11136,11 +11121,54 @@ packages:
     version: 1.1.4
     dev: false
 
+  r2.cnpmjs.org/combined-stream@1.0.8:
+    resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==, tarball: https://r2.cnpmjs.org/combined-stream/-/combined-stream-1.0.8.tgz}
+    name: combined-stream
+    version: 1.0.8
+    engines: {node: '>= 0.8'}
+    dependencies:
+      delayed-stream: r2.cnpmjs.org/delayed-stream@1.0.0
+    dev: false
+
+  r2.cnpmjs.org/delayed-stream@1.0.0:
+    resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==, tarball: https://r2.cnpmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz}
+    name: delayed-stream
+    version: 1.0.0
+    engines: {node: '>=0.4.0'}
+    dev: false
+
+  r2.cnpmjs.org/form-data@3.0.1:
+    resolution: {integrity: sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==, tarball: https://r2.cnpmjs.org/form-data/-/form-data-3.0.1.tgz}
+    name: form-data
+    version: 3.0.1
+    engines: {node: '>= 6'}
+    dependencies:
+      asynckit: 0.4.0
+      combined-stream: 1.0.8
+      mime-types: 2.1.35
+
+  r2.cnpmjs.org/form-data@4.0.0:
+    resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==, tarball: https://r2.cnpmjs.org/form-data/-/form-data-4.0.0.tgz}
+    name: form-data
+    version: 4.0.0
+    engines: {node: '>= 6'}
+    dependencies:
+      asynckit: r2.cnpmjs.org/asynckit@0.4.0
+      combined-stream: r2.cnpmjs.org/combined-stream@1.0.8
+      mime-types: 2.1.35
+    dev: false
+
   r2.cnpmjs.org/has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==, tarball: https://r2.cnpmjs.org/has-flag/-/has-flag-4.0.0.tgz}
     name: has-flag
     version: 4.0.0
     engines: {node: '>=8'}
+    dev: false
+
+  r2.cnpmjs.org/proxy-from-env@1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==, tarball: https://r2.cnpmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz}
+    name: proxy-from-env
+    version: 1.1.0
     dev: false
 
   r2.cnpmjs.org/source-map@0.6.1:

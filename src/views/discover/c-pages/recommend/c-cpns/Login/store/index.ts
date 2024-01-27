@@ -57,7 +57,6 @@ const LoginStore = createSlice({
     },
     changeProfile(state, { payload }) {
       state.profile = payload
-      console.log(payload)
     }
   }
 })

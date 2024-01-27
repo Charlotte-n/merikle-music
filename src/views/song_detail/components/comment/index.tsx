@@ -9,7 +9,7 @@ import {
 import TextArea from 'antd/es/input/TextArea'
 import UserComment from '@/views/song_detail/components/user-comment'
 import { shallowEqualApp, useAppSelector } from '@/store'
-import { Pagination } from 'antd'
+import { Button, message, Pagination } from 'antd'
 import { sendCommentApi, sendCommentType } from '@/api'
 
 interface IProps {
@@ -23,17 +23,29 @@ interface IProps {
 }
 
 const Comment: FC<IProps> = (props) => {
-  const { profile } = useAppSelector((state) => {
+  const { profile, userInfo } = useAppSelector((state) => {
     return {
+      userInfo: state.LoginStore.userInfo,
       profile: state.LoginStore.profile
     }
   }, shallowEqualApp)
   const [content, setContent] = useState('')
   //发评论
   const { param } = props
+  const [messageApi, contextHolder] = message.useMessage()
+  const info = () => {
+    messageApi.open({
+      type: 'success',
+      content: '发送成功'
+    })
+  }
   const sendComment = async () => {
     const res = await sendCommentApi({ ...param, content })
-    console.log(res)
+    if (res.code >= 200 && res.code <= 400) {
+      //清空内容
+      setContent('')
+      info()
+    }
   }
   const { avatarUrl } = profile
   const { getPageIndex } = props
@@ -43,6 +55,7 @@ const Comment: FC<IProps> = (props) => {
     }
   })
   const handlePageIndex = (val: number) => {
+    console.log(val)
     getPageIndex(val)
   }
 
@@ -51,9 +64,6 @@ const Comment: FC<IProps> = (props) => {
   ) => {
     setContent(e.target.value)
   }
-  useEffect(() => {
-    console.log(profile)
-  })
   return (
     <CommentWrapper>
       <CommentHeader>
@@ -70,12 +80,18 @@ const Comment: FC<IProps> = (props) => {
             maxLength={200}
             onChange={onChange}
             placeholder="评论"
+            value={content}
             style={{ height: '70px' }}
           />
           <div className="button">
-            <button className="btn" onClick={() => sendComment()}>
+            {contextHolder}
+            <Button
+              type="primary"
+              className="btn"
+              onClick={() => sendComment()}
+            >
               评论
-            </button>
+            </Button>
           </div>
         </div>
         {/*  精彩评论组件*/}
@@ -84,11 +100,10 @@ const Comment: FC<IProps> = (props) => {
       <PaginationWrapper className="pagination">
         <Pagination
           defaultCurrent={1}
-          total={commentList.total}
-          onChange={handlePageIndex}
           pageSize={50}
+          onChange={handlePageIndex}
+          total={commentList.total}
         />
-        ;
       </PaginationWrapper>
     </CommentWrapper>
   )

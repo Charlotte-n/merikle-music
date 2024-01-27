@@ -5,6 +5,7 @@ interface Props {
 }
 export const LyricSongsWrapper = styled.div<Props>`
   display: flex;
+  margin-bottom: 15px;
   .left {
     text-align: center;
     .img {

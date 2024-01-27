@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const LyricDetailWrapper = styled.div`
-  padding: 0 20px;
+  padding: 0 20px 20px 20px;
   display: flex;
   background-color: white;
 `

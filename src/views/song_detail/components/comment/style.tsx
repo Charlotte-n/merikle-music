@@ -21,13 +21,14 @@ export const CommentHeader = styled.div`
 export const CommentContent = styled.div`
   margin-top: 10px;
   display: flex;
+  width: 100%;
   .img {
     margin-right: 10px;
     width: 50px;
     height: 50px;
     img {
-      width: 100%;
-      height: 100%;
+      width: 50px;
+      height: 50px;
     }
   }
   .text {

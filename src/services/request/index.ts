@@ -26,9 +26,6 @@ class HYRequest {
     this.instance.interceptors.request.use(
       (config) => {
         // loading/token
-        if (store.getState().LoginStore.userInfo.cookie) {
-          config.headers.cookies = store.getState().LoginStore.userInfo.cookie
-        }
         return config
       },
       (err) => {
@@ -80,7 +77,7 @@ class HYRequest {
     })
   }
 
-  get<T = any>(config: HYRequestConfig<T>) {
+  get<T = any>(config: any) {
     return this.request({
       ...config,
       method: 'GET'

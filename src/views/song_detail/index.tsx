@@ -33,7 +33,7 @@ const SongDetail: FC<IProps> = () => {
     dispatch(
       fetchCommentListAction({
         id: Number(songId) == 0 ? '19723756' : songId,
-        offset: (pageIndex - 1) * 50
+        offset: pageIndex * 50
       })
     )
     return () => {}

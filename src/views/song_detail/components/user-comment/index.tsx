@@ -22,7 +22,7 @@ const UserComment: FC<IProps> = (props) => {
                   <img src={item.user.avatarUrl} alt="" />
                 </div>
                 <div className="content">
-                  <div>
+                  <div className="user_comment_content">
                     <span>{item.user.nickname}</span>:{item.content}
                   </div>
                   <div className="time">

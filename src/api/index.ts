@@ -1,7 +1,7 @@
 //发送评论
 
 import hyRequest from '@/services'
-
+import store from '@/store'
 export interface sendCommentType {
   t: number
   type: number
@@ -15,6 +15,10 @@ export interface sendCommentType {
  */
 export const sendCommentApi = (sendCommentParam: sendCommentType) => {
   return hyRequest.post({
-    url: `/comment?t=${sendCommentParam.t}&type=${sendCommentParam.type}&id=${sendCommentParam.id}&content=${sendCommentParam.content}`
+    url: `/comment?time=` + new Date(),
+    data: {
+      cookie: store.getState().LoginStore.userInfo.cookie,
+      ...sendCommentParam
+    }
   })
 }

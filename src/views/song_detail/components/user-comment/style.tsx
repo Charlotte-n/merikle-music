@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+gitimport styled from 'styled-components'
 
 export const UserCommentWrapper = styled.div`
   .header {
@@ -6,6 +6,7 @@ export const UserCommentWrapper = styled.div`
     border-bottom: 1px solid #cfcfcf;
   }
   .user_comment {
+    width: 100%;
     padding: 15px 0;
     display: flex;
     border-bottom: 1px dashed #cfcfcf;
@@ -14,16 +15,21 @@ export const UserCommentWrapper = styled.div`
       width: 50px;
       height: 50px;
       img {
-        width: 100%;
-        height: 100%;
+        width: 50px;
+        height: 50px;
       }
     }
     .content {
+      width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      width: 100%;
+      word-break: break-all;
+      .user_comment_content {
+        width: 100%;
+      }
       .time {
+        margin-top: 20px;
         display: flex;
         justify-content: space-between;
         .follow {

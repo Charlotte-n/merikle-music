@@ -35,7 +35,7 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 const persistConfig = {
   key: 'userInfo',
   storage,
-  whitelist: ['userInfo']
+  whitelist: ['userInfo', 'profile']
 }
 const DjPersistConfig = {
   key: 'djradio',
