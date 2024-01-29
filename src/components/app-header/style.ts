@@ -64,9 +64,6 @@ export const HeaderRight = styled.div`
   font-size: 13px;
   div {
     margin-right: 10px;
-    &:last-child {
-      margin-right: 0px;
-    }
   }
   .search {
     width: 175px;

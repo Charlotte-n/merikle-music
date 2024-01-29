@@ -6,10 +6,11 @@ import {
   SongListTableWrapper,
   SongListWrapper
 } from '@/views/song_detail/components/song-list/style'
-import { useAppSelector } from '@/store'
+import { useAppDispatch, useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import { formatTime } from '@/utils/formate'
 import { useNavigate } from 'react-router-dom'
+import { fetchCurrentSongAction } from '@/views/player/store'
 
 interface IProps {
   children?: ReactNode
@@ -23,8 +24,13 @@ const SongList: FC<IProps> = () => {
     }
   }, shallowEqual)
   const navigate = useNavigate()
-  const gotoLyricPage = (ids: string | number) => {
+  //@ts-ignore
+  const dispatch = useAppDispatch()
+  const gotoLyricPage = (ids: string) => {
     navigate('/lyric/detail?ids=' + ids)
+  }
+  const addCurrentSong = (ids: string) => {
+    dispatch(fetchCurrentSongAction(ids as string))
   }
 
   return (
@@ -37,7 +43,7 @@ const SongList: FC<IProps> = () => {
 
         <div
           className="songlist_right"
-          style={{ display: SongListDetail.playCount ? 'block' : 'none' }}
+          // style={{ display: SongListDetail.playCount ? 'block' : 'none' }}
         >
           <span className="play_songcount">播放:</span>
           <div>
@@ -63,11 +69,14 @@ const SongList: FC<IProps> = () => {
             <tbody>
               {SongListTable?.slice(0, 10).map((item, index) => {
                 return (
-                  <tr key={item.name}>
+                  <tr key={index}>
                     <td style={{ textAlign: 'center' }}>
                       <div className={'first'}>
                         <span>{index + 1}</span>
-                        <span className="sprite_02 play"></span>
+                        <span
+                          className="sprite_02 play"
+                          onClick={() => addCurrentSong(item.id)}
+                        ></span>
                       </div>
                     </td>
                     <td

@@ -23,7 +23,9 @@ function App() {
         <AppHeader></AppHeader>
         {/*子路由的显示内容*/}
         <Suspense fallback="">
-          <div className="main">{useRoutes(routes)}</div>
+          <div className="main" style={{ minHeight: '100vh' }}>
+            {useRoutes(routes)}
+          </div>
         </Suspense>
         <FloatButton.BackTop shape={'square'} description={<div>Top</div>} />
         <AppFooter></AppFooter>

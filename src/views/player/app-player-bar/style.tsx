@@ -16,7 +16,7 @@ export const AppPlayBar = styled.div`
   }
 `
 interface BarControlProps {
-  isPlaying: boolean
+  isplaying: any
 }
 export const BarControl = styled.div<BarControlProps>`
   margin-right: 30px;
@@ -27,18 +27,31 @@ export const BarControl = styled.div<BarControlProps>`
   .next {
     width: 28px;
     height: 28px;
+    cursor: pointer;
   }
   .pre {
     background-position: 0 -130px;
+    &:hover {
+      background-position: -30px -130px;
+    }
   }
   .play {
+    cursor: pointer;
     width: 36px;
     height: 36px;
     margin: 0 8px;
-    background-position: 0 ${(props) => (props.isPlaying ? '-165px' : '-204px')};
+    background-position: 0
+      ${(props: BarControlProps) => (props.isplaying ? '-165px' : '-204px')};
+    &:hover {
+      background-position: -40px
+        ${(props: BarControlProps) => (props.isplaying ? '-165px' : '-204px')};
+    }
   }
   .next {
     background-position: -80px -130px;
+    &:hover {
+      background-position: -110px -130px;
+    }
   }
 `
 

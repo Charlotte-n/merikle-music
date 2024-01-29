@@ -7,9 +7,10 @@ import { shallowEqual } from 'react-redux'
 
 interface IProps {
   children?: ReactNode
+  getId: any
 }
 
-const SongRanking: FC<IProps> = (props) => {
+const SongRanking: FC<IProps> = ({ getId }) => {
   //获取排行榜的数据
   const { rankingList } = useAppSelector((state) => {
     return {
@@ -24,12 +25,14 @@ const SongRanking: FC<IProps> = (props) => {
     <SongRankingWrapper>
       <div className="special_ranking">
         <RankingItem
+          getId={getId}
           title={'云音乐特色榜单'}
           rankingList={rankingList.slice(0, 4)}
         ></RankingItem>
       </div>
       <div className="global_ranking">
         <RankingItem
+          getId={getId}
           title={'全球媒体特色榜单'}
           rankingList={rankingList.slice(4)}
         ></RankingItem>

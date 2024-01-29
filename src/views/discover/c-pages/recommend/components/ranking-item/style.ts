@@ -40,7 +40,6 @@ export const RankingItemWrapper = styled.div`
       }
       .play {
         background-position: -267px -205px;
-
         &:hover {
           background-position: -267px -235px;
         }
@@ -90,12 +89,16 @@ export const RankingItemWrapper = styled.div`
         display: flex;
         display: none;
         .btn {
-          margin-right: 3px;
+          margin-right: 4px;
           width: 17px;
           height: 17px;
         }
         .play {
+          cursor: pointer;
           background-position: -267px -268px;
+          &:hover{
+            background-position: -267px -288px;
+          }
         }
         .add {
           position: relative;

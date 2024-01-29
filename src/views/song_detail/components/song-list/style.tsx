@@ -61,6 +61,7 @@ export const SongListTableWrapper = styled.div`
           width: 23px;
           height: 23px;
           background-position: -266px -205px;
+          cursor: pointer;
           &:hover {
             width: 23px;
             height: 23px;

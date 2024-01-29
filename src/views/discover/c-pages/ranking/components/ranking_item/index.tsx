@@ -8,14 +8,16 @@ interface IProps {
   children?: ReactNode
   title: string
   rankingList: List[]
+  getId: any
 }
 
 const RankingItem: FC<IProps> = (props) => {
-  const { title, rankingList } = props
+  const { title, rankingList, getId } = props
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const songListId = searchParams.get('id') as number | string
   const handleSongListId = (val: number) => {
+    getId(val)
     navigate('/discover/ranking?id=' + val)
   }
 

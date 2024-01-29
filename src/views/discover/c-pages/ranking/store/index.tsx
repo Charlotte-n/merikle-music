@@ -5,6 +5,7 @@ export const fetchSongRankingListAction = createAsyncThunk(
   'song-ranking-list',
   (state, { dispatch }) => {
     getRankingListApi().then((res) => {
+      console.log(res.list)
       dispatch(changeRankingListAction(res.list))
     })
   }
@@ -22,6 +23,7 @@ const SongRankingSlice = createSlice({
   initialState,
   reducers: {
     changeRankingListAction(state, { payload }) {
+      state.rankingList = []
       state.rankingList = payload
       state.rankingId = payload[0].id
     }

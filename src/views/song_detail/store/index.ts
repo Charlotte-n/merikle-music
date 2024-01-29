@@ -9,8 +9,6 @@ import {
 import { CommentListType, HotComment } from '@/views/song_detail/services/type'
 import { getLyricCommentApi } from '@/views/lyric-detail/services'
 import { getAlbumComment, getAlbumsDetail } from '@/views/album-detail/services'
-import { Simulate } from 'react-dom/test-utils'
-import error = Simulate.error
 
 //异步请求
 //获取专辑里面的歌单
@@ -53,7 +51,7 @@ export const fetchHotSongListDataAction = createAsyncThunk(
     // 获取歌单的所有歌曲
     getSongListApi(id)
       .then((res) => {
-        dispatch(changeHotSongListTableAction(res.songs))
+        dispatch(changeHotSongListTableAction([...new Set(res.songs)]))
       })
       .catch((error) => {
         console.log(error, '出错了')

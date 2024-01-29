@@ -6,6 +6,7 @@ module.exports = {
   plugins: [{ plugin: CracoCSSModules }],
 
   webpack: {
+    devtool: 'source-map',
     alias: {
       '@': resolve('src')
     },

@@ -29,3 +29,23 @@ export const getSongList = (id: any) => {
     url: `/playlist/detail?id=${id}`
   })
 }
+
+/**
+ * 获取歌曲的url地址
+ * @param id
+ */
+export const getSongUrl = (id: string) => {
+  return hyRequest.get({
+    url: '/song/url/v1?id=' + id
+  })
+}
+
+/**
+ * 检查歌曲是否能用
+ * @param id
+ */
+export const checkMusic = (id: string) => {
+  return hyRequest.get({
+    url: '/check/music?id' + id
+  })
+}

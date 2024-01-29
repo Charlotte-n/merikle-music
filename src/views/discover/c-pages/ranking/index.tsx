@@ -25,9 +25,7 @@ const Ranking = (props: any) => {
     }
   }, shallowEqual)
   const [searchParam] = useSearchParams()
-  const [songListId, setSongListId] = useState(
-    searchParam.get('id') as number | string
-  )
+  const [songListId, setSongListId] = useState(searchParam.get('id') as string)
   const [pageIndex, setPageIndex] = useState(1)
 
   const getPageIndex = (val: number) => {
@@ -37,26 +35,25 @@ const Ranking = (props: any) => {
   //@ts-ignore
 
   const dispatch = useAppDispatch()
+  const getId = (value: string) => {
+    setSongListId(value)
+  }
   useEffect(() => {
-    setSongListId(searchParam.get('id') as string)
-
+    dispatch(fetchHotSongListDataAction(songListId))
     dispatch(fetchSongRankingListAction())
-    dispatch(
-      fetchHotSongListDataAction(songListId == 0 ? 19723756 : songListId)
-    )
+  }, [songListId])
+  useEffect(() => {
     dispatch(
       fetchCommentListAction({
-        id: songListId == 0 ? 19723756 : songListId,
-        offset: (pageIndex - 1) * 50
+        id: songListId,
+        offset: pageIndex * 50
       })
     )
-    return () => {}
-  }, [songListId, pageIndex, location])
-
+  }, [songListId, pageIndex])
   return (
     <RankingWrapper className="wrap-v2">
       <div className="song_ranking">
-        <SongRanking></SongRanking>
+        <SongRanking getId={getId}></SongRanking>
       </div>
       <div className="ranking_detail">
         <RankingDetail getPageIndex={getPageIndex}></RankingDetail>

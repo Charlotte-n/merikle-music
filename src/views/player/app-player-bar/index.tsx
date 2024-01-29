@@ -9,16 +9,13 @@ import {
 import { Link } from 'react-router-dom'
 import { message, Slider } from 'antd'
 import { useAppDispatch, useAppSelector } from '@/store'
-import { getSongPlayUrl } from '@/utils/handle-player'
 import { formatTime } from '@/utils/formate'
-import { validateActive } from '@reduxjs/toolkit/dist/listenerMiddleware/task'
 import {
-  changeLyricAction,
   changeLyricIndexAction,
   changeMusicAction,
-  changePlayModeAction,
-  fetchCurrentSongAction
+  changePlayModeAction
 } from '@/views/player/store'
+import { getSongUrl } from '@/views/player/services/player'
 
 interface IProps {
   children?: ReactNode
@@ -26,16 +23,15 @@ interface IProps {
 
 const PlayBar: FC<IProps> = () => {
   const [isPlaying, setIsPlaying] = useState(false)
-  const audioRef = useRef<HTMLAudioElement>(null)
-  const [audioSrc, setAudioSrc] = useState('')
+  const audioRef = useRef<any>()
   const [duration, setDuration] = useState(0)
   const [progress, setProgress] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
   const [isSliding, setIsSliding] = useState(false)
   // @ts-ignore
   const dispatch = useAppDispatch()
-  const { currentSong, lyricSong, lyricIndex, playMode, playSongIndex } =
-    useAppSelector((state) => {
+  const { currentSong, lyricSong, lyricIndex, playMode } = useAppSelector(
+    (state) => {
       return {
         currentSong: state.player.currentSong,
         lyricSong: state.player.lyricSong,
@@ -43,13 +39,16 @@ const PlayBar: FC<IProps> = () => {
         playMode: state.player.playSongMode,
         playSongIndex: state.player.playSongIndex
       }
-    })
+    }
+  )
   //异步设置播放源
   const handlePlayBtnClick = () => {
+    console.log('播放了，查看情况的')
     //控制audio的开始和暂停
     isPlaying
       ? audioRef.current?.pause()
-      : audioRef.current?.play().catch((error) => {
+      : audioRef.current?.play().catch((error: any) => {
+          console.log('播放失败的原因', error)
           setIsPlaying(false)
         })
     //设置状态
@@ -85,11 +84,13 @@ const PlayBar: FC<IProps> = () => {
       message.config({
         top: 650
       })
-      message.open({
-        content: lyricSong[index]?.lyric,
-        key: 'lyric',
-        duration: 0
-      })
+      message
+        .open({
+          content: lyricSong[index]?.lyric,
+          key: 'lyric',
+          duration: 0
+        })
+        .then()
     } catch (error) {
       console.log(error)
     }
@@ -130,35 +131,38 @@ const PlayBar: FC<IProps> = () => {
 
   useEffect(() => {
     //1.播放音乐
-    console.log('目前的歌曲', currentSong?.id, playSongIndex)
-    if (currentSong != undefined) {
-      audioRef.current!.src = getSongPlayUrl(currentSong?.id)
-      audioRef.current
-        ?.play()
-        .then(() => {
-          setIsPlaying(true)
-          console.log('播放成功')
+    if (Object.keys(currentSong).length !== 0) {
+      const playAudio = async () => {
+        await getSongUrl(currentSong?.id).then((res) => {
+          if (res.data) {
+            audioRef.current!.src = res.data[0].url
+          }
         })
-        .catch((error) => {
-          setIsPlaying(false)
-          console.log('播放失败', error)
-        })
+        audioRef.current
+          .play()
+          .then(() => {
+            setIsPlaying(true)
+          })
+          .catch((error: any) => {
+            setIsPlaying(false)
+            console.log('播放失败', error)
+          })
+      }
+      playAudio().then()
       //2.拿到总时间
       setDuration(currentSong?.dt)
     }
     return () => {}
   }, [currentSong])
-
   const styls = {
     rail: { backgroundColor: '#111111' },
     track: { backgroundColor: 'red' }
   }
-
   return (
     <AppPlayBar>
       <div className="bar">
         <div className="control wrap-v2">
-          <BarControl isPlaying={isPlaying}>
+          <BarControl isplaying={isPlaying ? true : undefined}>
             <button
               className="pre sprite_playbar"
               onClick={() => handleChangeMusic(false)}
