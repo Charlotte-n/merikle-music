@@ -46,7 +46,7 @@ const DjRadioCategory: FC<IProps> = () => {
       <div className="banner">
         <Carousel
           dots={{ className: 'dots' }}
-          style={{ width: '850px', margin: 'auto' }}
+          style={{ width: '850px', margin: 'auto', minHeight: '150px' }}
           effect={'fade'}
           ref={carouselRef}
         >

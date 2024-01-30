@@ -1,15 +1,18 @@
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import { AlbumTotalWrapper } from '@/views/album-detail/c-pages/album-total/style'
-import Operation from '@/components/operation/operation'
 import { useAppSelector } from '@/store'
 import { formatTime, formatYearTime } from '@/utils/formate'
+import Operation from '@/components/operation/operation'
+import { useSearchParams } from 'react-router-dom'
 
 interface IProps {
   children?: ReactNode
 }
 
 const AlbumTotal: FC<IProps> = () => {
+  const [search] = useSearchParams()
+  const id = search.get('id') as string
   //拿数据
   //@ts-ignore
   const { AlbumDetail } = useAppSelector((state) => {
@@ -41,7 +44,7 @@ const AlbumTotal: FC<IProps> = () => {
               <span>{AlbumDetail.album?.company}</span>
             </li>
           </ul>
-          <Operation></Operation>
+          <Operation id={id} type={'album'}></Operation>
         </div>
       </div>
       <div className={'album_desc'}>

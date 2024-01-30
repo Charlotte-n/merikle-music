@@ -7,7 +7,7 @@ import {
 } from '@/views/discover/c-pages/albums/services'
 import { Categories, Sub } from '@/views/discover/c-pages/albums/services/type'
 
-//异步请求
+//异步请求获取所有歌单
 export const fetchAlbumSongListData = createAsyncThunk(
   'album_song_list',
   async (arg, { dispatch }) => {

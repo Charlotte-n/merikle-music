@@ -2,12 +2,20 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { getLyric, getSongDetail } from '@/views/player/services/player'
 import { ParseLyric } from '@/utils/parse-lyric'
 import { IRootState } from '@/store'
-
+import { fetchAlbumDetailAction } from '@/views/album-detail/store'
+import store from '@/store'
+import { fetchAlbumSongListData } from '@/views/discover/c-pages/albums/store'
+import {
+  fetchAlbumDetailSongListAction,
+  fetchHotSongListDataAction
+} from '@/views/song_detail/store'
+import songList from '@/views/song_detail/components/song-list'
 interface IThunkState {
   state: IRootState
 }
 
 //创建异步的片段
+//单个歌曲进行播放时的操作
 export const fetchCurrentSongAction = createAsyncThunk<
   void,
   string,
@@ -36,6 +44,38 @@ export const fetchCurrentSongAction = createAsyncThunk<
   lyric = ParseLyric(lyric)
   dispatch(changeLyricAction(lyric))
 })
+//歌单或者专辑播放的时候的操作
+export const fetchCurrentSongBySongListOrAlbum = createAsyncThunk(
+  'songlist_album',
+  ({ id, type }: { id: string; type: string }, { dispatch, getState }) => {
+    if (type === 'album') {
+      //获取所有专辑歌单
+      dispatch(fetchAlbumDetailAction(id))
+      console.log('专辑')
+      //把获取到的歌单放入到SongList里面
+      const albumSongList = store.getState().AlbumDetailSlice.AlbumSongList
+      const playSongList = (getState() as any).player.playSongList
+      const newPlaySongList = [...playSongList, ...albumSongList]
+      dispatch(changePlaySongList(newPlaySongList))
+      //更改当前的歌单歌曲
+      dispatch(changeCurrentSongAction(albumSongList[0]))
+      dispatch(changePlaySongIndex(albumSongList[0]))
+    } else {
+      //获取到所有的歌单
+      dispatch(fetchHotSongListDataAction(id))
+      console.log('歌单')
+      //将获取的歌单放入到SongList里面
+      const songList = store.getState().songDetail.hotSongListTable
+      const playSongList = (getState() as any).player.playSongList
+      const newPlaySongList = [...playSongList, ...songList]
+      dispatch(changePlaySongList(newPlaySongList))
+      //更改当前的歌单歌曲
+      dispatch(changeCurrentSongAction(songList[0]))
+      dispatch(changePlaySongIndex(songList[0]))
+    }
+  }
+)
+
 //切换歌曲:根据播放模式（单曲循环，顺序，随机）
 export const changeMusicAction = createAsyncThunk<void, boolean, IThunkState>(
   'changeMusic',
@@ -62,10 +102,12 @@ export const changeMusicAction = createAsyncThunk<void, boolean, IThunkState>(
     //4. 获取当前的音乐的歌词
     //请求歌词数据
     getLyric(song.id).then((res) => {
-      let lyric = res.lrc.lyric
-      //对歌词进行数据处理
-      lyric = ParseLyric(lyric)
-      dispatch(changeLyricAction(lyric))
+      if (res.lrc) {
+        let lyric = res.lrc.lyric
+        //对歌词进行数据处理
+        lyric = ParseLyric(lyric)
+        dispatch(changeLyricAction(lyric))
+      }
     })
   }
 )

@@ -9,7 +9,7 @@ export const fetchAlbumDetailAction = createAsyncThunk(
     getAlbumsDetail(id)
       .then((res) => {
         dispatch(changeAlbumDetailAction(res))
-        console.log(res)
+        dispatch(changeAlbumSongListAction(res.songs))
       })
       .catch((error) => {
         console.log(error, '出现未知错误')
@@ -19,9 +19,11 @@ export const fetchAlbumDetailAction = createAsyncThunk(
 
 interface AlbumDetailState {
   AlbumDetail: AlbumDetailType
+  AlbumSongList: any
 }
 const initialState: AlbumDetailState = {
-  AlbumDetail: {} as AlbumDetailType
+  AlbumDetail: {} as AlbumDetailType,
+  AlbumSongList: []
 }
 const albumDetailSlice = createSlice({
   name: 'albumDetail',
@@ -29,9 +31,13 @@ const albumDetailSlice = createSlice({
   reducers: {
     changeAlbumDetailAction: (state, { payload }) => {
       state.AlbumDetail = payload
+    },
+    changeAlbumSongListAction: (state, { payload }) => {
+      state.AlbumSongList = payload
     }
   }
 })
 
-export const { changeAlbumDetailAction } = albumDetailSlice.actions
+export const { changeAlbumDetailAction, changeAlbumSongListAction } =
+  albumDetailSlice.actions
 export default albumDetailSlice.reducer

@@ -5,8 +5,8 @@ export const LyricSongWrapper = styled.div`
   .lyric_left {
     width: 35%;
     img {
-      width: 180px;
-      height: 180px;
+      width: 150px;
+      height: 150px;
     }
   }
   .lyric_right {

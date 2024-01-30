@@ -1,9 +1,12 @@
 import React, { memo, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import { LyricSongsWrapper } from '@/views/lyric-detail/c-pages/lyric-songs/style'
-import { useAppSelector } from '@/store'
+import { useAppDispatch, useAppSelector } from '@/store'
 import lyricSong from '@/views/song_detail/components/lyric-song'
 import { DownOutlined, UpOutlined } from '@ant-design/icons'
+import Operation from '@/components/operation/operation'
+import { fetchCurrentSongAction } from '@/views/player/store'
+import { useSearchParams } from 'react-router-dom'
 
 interface IProps {
   children?: ReactNode
@@ -11,6 +14,8 @@ interface IProps {
 
 const LyricSongs: FC<IProps> = () => {
   const [showStatus, setShowStatus] = useState(false)
+  const [search] = useSearchParams()
+  const id = search.get('id') as string
   const { LyricSongsDetail, LyricSong } = useAppSelector((state) => {
     return {
       LyricSongsDetail: state.LyricDetailSlice.LyricDetail,
@@ -21,6 +26,7 @@ const LyricSongs: FC<IProps> = () => {
     setShowStatus(!showStatus)
   }
   const song = LyricSongsDetail ? LyricSongsDetail[0] : LyricSongsDetail
+
   return (
     <LyricSongsWrapper showStatus={showStatus}>
       <div className={'left'}>
@@ -47,19 +53,7 @@ const LyricSongs: FC<IProps> = () => {
             <dt>{song?.al.name}</dt>
           </div>
         </div>
-        <div className={'operation'}>
-          <div className="play">
-            <i className="sprite_button play1">
-              <span className="play_title">播放</span>
-            </i>
-            <i className="sprite_playbar play2"></i>
-            <i className="sprite_button play3"></i>
-          </div>
-          <div className="sprite_button2 collect"></div>
-          <div className="sprite_button2 share"></div>
-          <div className="sprite_button2 download"></div>
-          <div className="sprite_button2 discuss"></div>
-        </div>
+        <Operation type="song" id={id}></Operation>
         <div className={['lyric', showStatus ? 'active' : null].join(' ')}>
           {LyricSong}
         </div>

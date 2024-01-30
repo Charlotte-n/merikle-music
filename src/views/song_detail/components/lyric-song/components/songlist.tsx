@@ -4,6 +4,8 @@ import { SongListDescriptionWrapper } from '@/views/song_detail/components/lyric
 import { Playlist } from '@/views/player/services/types'
 import { formatYearTime } from '@/utils/formate'
 import { Tag } from 'antd'
+import Operation from '@/components/operation/operation'
+import { useSearchParams } from 'react-router-dom'
 
 interface IProps {
   children?: ReactNode
@@ -11,6 +13,8 @@ interface IProps {
 }
 
 const SongListDescription: FC<IProps> = (props) => {
+  const [search] = useSearchParams()
+  const id = search.get('id') as string
   const { CurrentSongList } = props
   useEffect(() => {
     console.log('当前的时间为', CurrentSongList.createTime)
@@ -34,19 +38,7 @@ const SongListDescription: FC<IProps> = (props) => {
           <span>创建</span>
         </div>
       </div>
-      <div className="song_operate">
-        <div className="play">
-          <i className="sprite_button play1">
-            <span className="play_title">播放</span>
-          </i>
-          <i className="sprite_playbar play2"></i>
-          <i className="sprite_button play3"></i>
-        </div>
-        <div className="sprite_button2 collect"></div>
-        <div className="sprite_button2 share"></div>
-        <div className="sprite_button2 download"></div>
-        <div className="sprite_button2 discuss"></div>
-      </div>
+      <Operation type="songList" id={id}></Operation>
       <div className="song_tag">
         <div>
           <span className="tags">标签:</span>
