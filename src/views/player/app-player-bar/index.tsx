@@ -131,7 +131,7 @@ const PlayBar: FC<IProps> = () => {
 
   useEffect(() => {
     //1.播放音乐
-    if (Object.keys(currentSong).length !== 0) {
+    if (!currentSong) {
       const playAudio = async () => {
         await getSongUrl(currentSong?.id).then((res) => {
           if (res.data) {
