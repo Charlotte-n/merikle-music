@@ -16,6 +16,7 @@ import {
   changePlayModeAction
 } from '@/views/player/store'
 import { getSongUrl } from '@/views/player/services/player'
+import PlayList from '@/views/player/app-player-bar/PlayList'
 
 interface IProps {
   children?: ReactNode
@@ -28,6 +29,7 @@ const PlayBar: FC<IProps> = () => {
   const [progress, setProgress] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
   const [isSliding, setIsSliding] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
   // @ts-ignore
   const dispatch = useAppDispatch()
   const { currentSong, lyricSong, lyricIndex, playMode } = useAppSelector(
@@ -131,7 +133,7 @@ const PlayBar: FC<IProps> = () => {
 
   useEffect(() => {
     //1.播放音乐
-    if (!currentSong) {
+    if (currentSong) {
       const playAudio = async () => {
         await getSongUrl(currentSong?.id).then((res) => {
           if (res.data) {
@@ -160,6 +162,13 @@ const PlayBar: FC<IProps> = () => {
   }
   return (
     <AppPlayBar>
+      {isVisible && (
+        <PlayList>
+          {{
+            close: () => setIsVisible(false)
+          }}
+        </PlayList>
+      )}
       <div className="bar">
         <div className="control wrap-v2">
           <BarControl isplaying={isPlaying ? true : undefined}>
@@ -210,7 +219,10 @@ const PlayBar: FC<IProps> = () => {
                 className="btn sprite_playbar second"
                 onClick={handleMode}
               ></button>
-              <button className="btn sprite_playbar playlist"></button>
+              <button
+                className="btn sprite_playbar playlist"
+                onClick={() => setIsVisible(!isVisible)}
+              ></button>
             </div>
           </MusicOperation>
         </div>

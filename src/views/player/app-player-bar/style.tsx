@@ -4,10 +4,9 @@ export const AppPlayBar = styled.div`
   position: sticky;
   left: 0;
   bottom: 0;
-  height: 50px;
-  background-color: #2e2d2d;
   .bar {
-    height: 100%;
+    height: 52px;
+    background-color: #2e2d2d;
     .control {
       height: 100%;
       display: flex;
@@ -137,9 +136,14 @@ export const MusicOperation = styled.div<IBarOperator>`
       }};
       }}
     .playlist {
+      cursor: pointer;
       color: #ccc;
-      width: 59px;
-      background-position: -42px -68px;
+      width: 60px!important;
+      background-position: -42px -71px;
+      &:hover {
+        background-position: -42px -101px;
+
+      }
     }
   }
 `
