@@ -15,7 +15,7 @@ interface IProps {
 const LyricSongs: FC<IProps> = () => {
   const [showStatus, setShowStatus] = useState(false)
   const [search] = useSearchParams()
-  const id = search.get('id') as string
+  const id = search.get('ids') as string
   const { LyricSongsDetail, LyricSong } = useAppSelector((state) => {
     return {
       LyricSongsDetail: state.LyricDetailSlice.LyricDetail,
