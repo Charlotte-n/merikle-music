@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { repeat } from 'lodash'
 
 export const PlayListWrapper = styled.div`
   width: 986px;
@@ -89,18 +90,38 @@ export const PlayListWrapper = styled.div`
     }
 `
 
-export const Pannel = styled.div`
+interface props {
+  background: string
+}
+export const Pannel = styled.div<props>`
+  .mask {
+    background-color: black;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 40px;
+    right: 220px;
+    bottom: 50px;
+    left: 220px;
+    opacity: 0.6;
+  }
   .bg {
     display: flex;
     width: 976px;
     height: 263px;
     padding: 0 5px;
     overflow: hidden;
+    background-image: url(${(props) => props.background});
     background-position: -1014px 0;
-    background-repeat: repeat-y;
+    background-size: 980px;
+    background-repeat: ${(props) => (props.background ? 'repeat' : 'repeat-y')};
     .left {
       padding: 5px 15px;
-      width: 56.5%;
+      width: 53%;
+      overflow: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
       ul {
         text-decoration: none;
         list-style: none;
@@ -121,6 +142,18 @@ export const Pannel = styled.div`
       opacity: 0.5;
     }
     .right {
+      width: 43%;
+      text-align: center;
+      overflow: auto;
+      white-space: pre-wrap;
+      line-height: 2;
+      font-size: 12px;
+      max-height: 300px;
+      color: #c1c1c1;
+      z-index: 100;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 `

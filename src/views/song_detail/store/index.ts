@@ -115,7 +115,8 @@ const songDetailSlice = createSlice({
       state.hotSongList = payload
     },
     changeHotSongListTableAction(state, { payload }) {
-      state.hotSongListTable = payload
+      const res = new Set(payload)
+      state.hotSongListTable = [...res]
     },
     changeSongDetailAction(state, { payload }) {
       state.songDetail = payload

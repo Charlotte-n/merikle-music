@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import type { FC, ReactNode } from 'react'
 import {
   Pannel,
@@ -8,6 +8,7 @@ import SongItem from '@/views/player/app-player-bar/components/song-item/song'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import { fetchCurrentSongAction } from '@/views/player/store'
+import { fetchLyricDetailAction } from '@/views/lyric-detail/store'
 
 interface IProps {
   children?: any
@@ -15,9 +16,11 @@ interface IProps {
 
 const PlayList: FC<IProps> = ({ children }) => {
   const { close } = children
-  const { SongList } = useAppSelector((state) => {
+  const { SongList, currentSong, LyricSong } = useAppSelector((state) => {
     return {
-      SongList: state.player.playSongList
+      SongList: state.player.playSongList,
+      currentSong: state.player.currentSong,
+      LyricSong: state.LyricDetailSlice.LyricSong
     }
   }, shallowEqual)
   //@ts-ignore
@@ -26,6 +29,10 @@ const PlayList: FC<IProps> = ({ children }) => {
     console.log(value)
     dispatch(fetchCurrentSongAction(value.id))
   }
+  useEffect(() => {
+    //   获取歌词
+    dispatch(fetchLyricDetailAction(currentSong.id))
+  }, [])
   return (
     <PlayListWrapper>
       <div className="playpanel_bg header">
@@ -42,20 +49,21 @@ const PlayList: FC<IProps> = ({ children }) => {
           </div>
         </div>
         <div className="right">
-          <h4>诀别书</h4>
+          <h4>{currentSong.al.name}</h4>
           <i className="icon_close" onClick={() => close()}>
             <span className="close sprite_playlist"></span>
           </i>
         </div>
       </div>
-      <Pannel>
+      <Pannel background={currentSong.al.picUrl}>
+        <div className="mask"></div>
         <div className="playpanel_bg bg">
           <div className="left">
             {/*  展示歌单*/}
             <ul>
               {SongList.map((item, index) => {
                 return (
-                  <li key={item.name} style={{ position: 'relative' }}>
+                  <li key={item.id + index} style={{ position: 'relative' }}>
                     <SongItem
                       ItemDetail={item}
                       getCurrentSong={getCurrentSong}
@@ -66,7 +74,7 @@ const PlayList: FC<IProps> = ({ children }) => {
             </ul>
           </div>
           <div className="line"></div>
-          <div className="right"></div>
+          <div className="right">{LyricSong}</div>
         </div>
       </Pannel>
     </PlayListWrapper>

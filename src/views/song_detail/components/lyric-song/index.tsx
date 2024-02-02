@@ -24,7 +24,6 @@ const LyricSong: FC<IProps> = () => {
       if (res.songs.length == 0) {
         getSongList(songId).then((res) => {
           setCurrentSongList(res.playlist)
-          console.log(res.playlist)
         })
       } else {
         setCurrentSongDetail(res.songs[0])

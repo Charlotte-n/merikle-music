@@ -67,8 +67,8 @@ export const fetchCurrentSongBySongListOrAlbum = createAsyncThunk(
       //将获取的歌单放入到SongList里面
       const songList = store.getState().songDetail.hotSongListTable
       const playSongList = (getState() as any).player.playSongList
-      const newPlaySongList = [...playSongList, ...songList]
-      dispatch(changePlaySongList(newPlaySongList))
+      const newPlaySongList = new Set([...playSongList, ...songList])
+      dispatch(changePlaySongList([...newPlaySongList]))
       //更改当前的歌单歌曲
       dispatch(changeCurrentSongAction(songList[0]))
       dispatch(changePlaySongIndex(songList[0]))
@@ -517,6 +517,9 @@ const playerSlice = createSlice({
     },
     changePlayModeAction(state, { payload }) {
       state.playSongMode = payload
+    },
+    clearAll(state, { payload }) {
+      state.playSongList = []
     }
   }
 })
