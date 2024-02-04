@@ -154,6 +154,10 @@ export const Pannel = styled.div<props>`
       &::-webkit-scrollbar {
         display: none;
       }
+      .active {
+        color: red;
+        font-size: 13px;
+      }
     }
   }
 `

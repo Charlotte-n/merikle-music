@@ -21,8 +21,11 @@ export const ParseLyric = (Lyric: any) => {
 
     //3.获取文本
     const text = line.replace(rule, '')
-
     Lyrics.push({ time: totalTime, lyric: text })
   }
   return Lyrics
+}
+//歌词转化为数组
+export const transformArray = (lyric: string) => {
+  return lyric.split('\n')
 }
