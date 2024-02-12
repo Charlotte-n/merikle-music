@@ -513,8 +513,9 @@ const playerSlice = createSlice({
     changePlayModeAction(state, { payload }) {
       state.playSongMode = payload
     },
-    clearAll(state, { payload }) {
+    clearAll(state) {
       state.playSongList = []
+      state.currentSong = {}
     }
   }
 })
@@ -524,6 +525,7 @@ export const {
   changeLyricIndexAction,
   changePlaySongList,
   changePlaySongIndex,
-  changePlayModeAction
+  changePlayModeAction,
+  clearAll
 } = playerSlice.actions
 export default playerSlice.reducer

@@ -9,7 +9,7 @@ export const SongItemWrapper = styled.div`
     color: #ffffff;
     .operate {
       position: absolute;
-      left: 260px;
+      left: 220px;
       top: 4px;
       display: flex;
       .icon {

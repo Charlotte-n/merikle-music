@@ -22,6 +22,7 @@ export const fetchLyricDetailAction = createAsyncThunk(
       .then((res) => {
         const regex = /\[\d{2}:\d{2}\.\d+\]/g
         const result = res?.lrc.lyric.replace(regex, '')
+        dispatch(changeLyricSongArrayAction(res?.lrc.lyric.split('\n')))
         dispatch(changeLyricSongAction(result))
       })
       .catch((error) => {
@@ -51,12 +52,14 @@ interface initialStateType {
   LyricSong: string
   similarPlayList: Playlist[]
   similarSong: simSong[]
+  LyricSongArray: string[]
 }
 export const initialState: initialStateType = {
   LyricDetail: [],
   LyricSong: '',
   similarPlayList: [],
-  similarSong: []
+  similarSong: [],
+  LyricSongArray: ['']
 }
 export const LyricDetailSlice = createSlice({
   extraReducers: undefined,
@@ -74,6 +77,9 @@ export const LyricDetailSlice = createSlice({
     },
     changeSimilarSongAction(state, { payload }) {
       state.similarSong = payload
+    },
+    changeLyricSongArrayAction(state, { payload }) {
+      state.LyricSongArray = payload
     }
   }
 })
@@ -81,6 +87,7 @@ export const {
   changeLyricDetailAction,
   changeLyricSongAction,
   changeSimilarPlayListAction,
-  changeSimilarSongAction
+  changeSimilarSongAction,
+  changeLyricSongArrayAction
 } = LyricDetailSlice.actions
 export default LyricDetailSlice.reducer

@@ -45,16 +45,17 @@ const PlayBar: FC<IProps> = () => {
   )
   //异步设置播放源
   const handlePlayBtnClick = () => {
-    console.log('播放了，查看情况的')
     //控制audio的开始和暂停
-    isPlaying
-      ? audioRef.current?.pause()
-      : audioRef.current?.play().catch((error: any) => {
-          console.log('播放失败的原因', error)
-          setIsPlaying(false)
-        })
-    //设置状态
-    setIsPlaying(!isPlaying)
+    if (JSON.stringify(currentSong) !== '{}') {
+      isPlaying
+        ? audioRef.current?.pause()
+        : audioRef.current?.play().catch((error: any) => {
+            console.log('播放失败的原因', error)
+            setIsPlaying(false)
+          })
+      //设置状态
+      setIsPlaying(!isPlaying)
+    }
   }
   //音乐的播放进度处理
   const handleTimeUpdate = () => {
@@ -109,14 +110,16 @@ const PlayBar: FC<IProps> = () => {
   }
   const handleSliderChange = (value: number) => {
     //duration为ms,当前的时间也为s
-    //1.获取当前位置的时间
-    const currentime = (value / 100) * duration
-    //2.设置时间
-    audioRef.current!.currentTime = currentime / 1000
-    //3.currentTime和Porgress
-    setProgress(value)
-    setCurrentTime(currentime)
-    setIsSliding(false)
+    if (JSON.stringify(currentSong) !== '{}') {
+      //1.获取当前位置的时间
+      const currentime = (value / 100) * duration
+      //2.设置时间
+      audioRef.current!.currentTime = currentime / 1000
+      //3.currentTime和Porgress
+      setProgress(value)
+      setCurrentTime(currentime)
+      setIsSliding(false)
+    }
   }
   //处理随机，顺序，默认
   const handleMode = () => {
@@ -126,14 +129,14 @@ const PlayBar: FC<IProps> = () => {
   }
   //#region切换音乐这个逻辑比较复杂准备在仓库里面写
   const handleChangeMusic = (isNext = true) => {
-    console.log(isNext)
     dispatch(changeMusicAction(isNext))
   }
   //endregion
 
   useEffect(() => {
+    console.log('现在我的歌曲', currentSong)
     //1.播放音乐
-    if (currentSong) {
+    if (JSON.stringify(currentSong) !== '{}') {
       const playAudio = async () => {
         await getSongUrl(currentSong?.id).then((res) => {
           if (res.data) {
@@ -153,6 +156,8 @@ const PlayBar: FC<IProps> = () => {
       playAudio().then()
       //2.拿到总时间
       setDuration(currentSong?.dt)
+    } else {
+      audioRef.current.pause()
     }
     return () => {}
   }, [currentSong])
