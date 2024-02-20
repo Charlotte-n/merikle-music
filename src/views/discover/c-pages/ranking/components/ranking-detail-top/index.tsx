@@ -1,27 +1,39 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import {
   OperationWrapper,
   RankingDetailTopWrapper
 } from '@/views/discover/c-pages/ranking/components/ranking-detail-top/style'
-import { useAppSelector } from '@/store'
+import { useAppDispatch, useAppSelector } from '@/store'
 import { formatYearTime } from '@/utils/formate'
+import { Spin } from 'antd'
+import { shallowEqual } from 'react-redux'
+import { changeImageLoading } from '@/views/song_detail/store'
 
 interface IProps {
   children?: ReactNode
 }
 
 const RankingDetailTop: FC<IProps> = () => {
-  const { rankingDetail } = useAppSelector((state) => {
+  const { rankingDetail, loading } = useAppSelector((state) => {
     return {
-      rankingDetail: state.songDetail.songDetail
+      rankingDetail: state.songDetail.songDetail,
+      loading: state.songDetail.imageLoading
     }
-  })
+  }, shallowEqual)
+  const dispatch = useAppDispatch()
+  const handleLoad = () => {
+    console.log('加载完成')
+    dispatch(changeImageLoading(false))
+  }
   return (
     <RankingDetailTopWrapper>
-      <div className="img">
-        <img src={rankingDetail.coverImgUrl} alt="" />
-      </div>
+      <Spin spinning={loading}>
+        <div className="img">
+          <img src={rankingDetail.coverImgUrl} onLoad={handleLoad} alt="" />
+        </div>
+      </Spin>
+
       <div className="ranking_detail_right">
         <div className="title">{rankingDetail.name}</div>
         <div className="update_time">

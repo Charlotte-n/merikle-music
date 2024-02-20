@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { getLyric, getSongDetail } from '@/views/player/services/player'
 import { ParseLyric } from '@/utils/parse-lyric'
-import { IRootState } from '@/store'
+import { RootState } from '@/store'
 import { fetchAlbumDetailAction } from '@/views/album-detail/store'
 import store from '@/store'
 import { fetchHotSongListDataAction } from '@/views/song_detail/store'
 interface IThunkState {
-  state: IRootState
+  state: RootState
 }
 
 //创建异步的片段

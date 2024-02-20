@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import { AlbumTotalWrapper } from '@/views/album-detail/c-pages/album-total/style'
 import { useAppSelector } from '@/store'
-import { formatTime, formatYearTime } from '@/utils/formate'
+import { formatYearTime } from '@/utils/formate'
 import Operation from '@/components/operation/operation'
 import { useSearchParams } from 'react-router-dom'
 

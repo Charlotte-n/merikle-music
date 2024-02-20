@@ -17,6 +17,8 @@ const RankingItem: FC<IProps> = (props) => {
   const [searchParams] = useSearchParams()
   const songListId = searchParams.get('id') as number | string
   const handleSongListId = (val: number) => {
+    //把之前仓库里的数据删除，重新获取
+
     getId(val)
     navigate('/discover/ranking?id=' + val)
   }

@@ -4,6 +4,7 @@ export const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  height: 400px;
   .song_item {
     width: 24%;
   }

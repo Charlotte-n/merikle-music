@@ -11,18 +11,23 @@ import { shallowEqual } from 'react-redux'
 import { formatTime } from '@/utils/formate'
 import { useNavigate } from 'react-router-dom'
 import { fetchCurrentSongAction } from '@/views/player/store'
+import { Skeleton } from 'antd'
 
 interface IProps {
   children?: ReactNode
 }
 
 const SongList: FC<IProps> = () => {
-  const { SongListTable, SongListDetail } = useAppSelector((state) => {
-    return {
-      SongListTable: state.songDetail.hotSongListTable,
-      SongListDetail: state.songDetail.songDetail
-    }
-  }, shallowEqual)
+  const { SongListTable, SongListDetail, tableLoading } = useAppSelector(
+    (state) => {
+      return {
+        SongListTable: state.songDetail.hotSongListTable,
+        SongListDetail: state.songDetail.songDetail,
+        tableLoading: state.songDetail.tableLoading
+      }
+    },
+    shallowEqual
+  )
   const navigate = useNavigate()
   //@ts-ignore
   const dispatch = useAppDispatch()
@@ -54,55 +59,57 @@ const SongList: FC<IProps> = () => {
       </SongListHeader>
       <SongListTableWrapper>
         <div className="table">
-          <table>
-            <thead>
-              <tr>
-                <th></th>
-                <th>
-                  <div>歌曲标题</div>
-                </th>
-                <th>时长</th>
-                <th>歌手</th>
-                <th>专辑</th>
-              </tr>
-            </thead>
-            <tbody>
-              {SongListTable?.slice(0, 10).map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <td style={{ textAlign: 'center' }}>
-                      <div className={'first'}>
-                        <span>{index + 1}</span>
-                        <span
-                          className="sprite_02 play"
-                          onClick={() => addCurrentSong(item.id)}
-                        ></span>
-                      </div>
-                    </td>
-                    <td
-                      className="ellipsis_1 song_name"
-                      onClick={() => gotoLyricPage(item.id)}
-                    >
-                      {item.name}
-                    </td>
-                    <td>{formatTime(item.dt)}</td>
-                    <td>小红</td>
-                    <td
-                      className="ellipsis_1"
-                      style={{
-                        width: '100px',
-                        display: 'inline-block',
-                        lineHeight: '30px',
-                        overflow: 'hidden'
-                      }}
-                    >
-                      {item.al.name}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+          <Skeleton loading={tableLoading} style={{ width: '500px' }}>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>
+                    <div>歌曲标题</div>
+                  </th>
+                  <th>时长</th>
+                  <th>歌手</th>
+                  <th>专辑</th>
+                </tr>
+              </thead>
+              <tbody>
+                {SongListTable?.slice(0, 10).map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td style={{ textAlign: 'center' }}>
+                        <div className={'first'}>
+                          <span>{index + 1}</span>
+                          <span
+                            className="sprite_02 play"
+                            onClick={() => addCurrentSong(item.id)}
+                          ></span>
+                        </div>
+                      </td>
+                      <td
+                        className="ellipsis_1 song_name"
+                        onClick={() => gotoLyricPage(item.id)}
+                      >
+                        {item.name}
+                      </td>
+                      <td>{formatTime(item.dt)}</td>
+                      <td>小红</td>
+                      <td
+                        className="ellipsis_1"
+                        style={{
+                          width: '100px',
+                          display: 'inline-block',
+                          lineHeight: '30px',
+                          overflow: 'hidden'
+                        }}
+                      >
+                        {item.al.name}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </Skeleton>
         </div>
       </SongListTableWrapper>
       <GetMoreContentWrapper>

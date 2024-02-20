@@ -23,6 +23,7 @@ export const fetchRecommendDataAction = createAsyncThunk(
     })
     //获取热门推荐数据
     HotRecommendApi(8).then((res) => {
+      dispatch(changeLoading(false))
       dispatch(changeHotRecommendAction(res.result))
     })
     //获取新专辑数据
@@ -62,6 +63,8 @@ interface IRecommendState {
   loginKey: number | string
   code: string
   loginStatus: number | string
+  loading: boolean
+  imageLoading: boolean
 }
 //仓库保存数据
 const initialState: IRecommendState = {
@@ -72,7 +75,9 @@ const initialState: IRecommendState = {
   Artilist: [],
   loginKey: 1,
   code: '',
-  loginStatus: 801
+  loginStatus: 801,
+  loading: true,
+  imageLoading: true
 }
 //创建切片
 const recommendSlice = createSlice({
@@ -103,6 +108,12 @@ const recommendSlice = createSlice({
     },
     changeLoginStatus(state, { payload }) {
       state.loginStatus = payload
+    },
+    changeLoading(state, { payload }) {
+      state.loading = payload
+    },
+    changeImageLoading(state, { payload }) {
+      state.imageLoading = payload
     }
   }
 })
@@ -114,6 +125,8 @@ export const {
   changeArtilist,
   changeLoginKey,
   changeCode,
-  changeLoginStatus
+  changeLoading,
+  changeLoginStatus,
+  changeImageLoading
 } = recommendSlice.actions
 export default recommendSlice.reducer

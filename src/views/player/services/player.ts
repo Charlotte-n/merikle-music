@@ -1,6 +1,25 @@
-import hyRequest from '@/services'
 import { SongList } from '@/views/player/services/types'
+import HYRequest from '@/services/request'
+import { BASE_URL, TIME_OUT } from '@/services/config'
+import store from '@/store'
+import { changeLoading } from '@/store/modules/common'
 
+const hyRequest = new HYRequest({
+  baseURL: BASE_URL,
+  timeout: TIME_OUT,
+  withCredentials: true,
+  interceptors: {
+    requestSuccessFn: (config) => {
+      store.dispatch(changeLoading(false))
+      return config
+    },
+    responseSuccessFn: (res) => {
+      store.dispatch(changeLoading(false))
+      console.log(res)
+      return res
+    }
+  }
+})
 /**
  * 获取歌曲详情
  * @param id

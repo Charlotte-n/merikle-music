@@ -1,8 +1,8 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios from 'axios'
 import type { AxiosInstance } from 'axios'
 import type { HYRequestConfig } from './type'
 import store from '@/store'
-
+import { changeLoading } from '@/store/modules/common'
 // 拦截器: 蒙版Loading/token/修改配置
 
 /**
@@ -25,7 +25,11 @@ class HYRequest {
     // 每个instance实例都添加拦截器
     this.instance.interceptors.request.use(
       (config) => {
+        console.log(config)
         // loading/token
+        if (!store.getState().CommonStore.loading) {
+          store.dispatch(changeLoading(true))
+        }
         return config
       },
       (err) => {
@@ -34,6 +38,9 @@ class HYRequest {
     )
     this.instance.interceptors.response.use(
       (res) => {
+        if (store.getState().CommonStore.loading) {
+          store.dispatch(changeLoading(false))
+        }
         return res.data
       },
       (err) => {
@@ -43,7 +50,8 @@ class HYRequest {
 
     // 针对特定的hyRequest实例添加拦截器
     this.instance.interceptors.request.use(
-      // config.interceptors?.requestSuccessFn,
+      // @ts-ignore
+      config.interceptors?.requestSuccessFn,
       config.interceptors?.requestFailureFn
     )
     this.instance.interceptors.response.use(

@@ -41,6 +41,8 @@ export const fetchHotSongListDataAction = createAsyncThunk(
   'hot_song_list',
   async (id: string | number, { dispatch }) => {
     //获取热门歌单
+    dispatch(changeImageLoading(true))
+    dispatch(changeTableLoading(true))
     HotRecommendApi(5)
       .then((res) => {
         dispatch(changeHotSongListAction(res.result))
@@ -51,7 +53,9 @@ export const fetchHotSongListDataAction = createAsyncThunk(
     // 获取歌单的所有歌曲
     getSongListApi(id)
       .then((res) => {
+        console.log(res)
         dispatch(changeHotSongListTableAction([...new Set(res.songs)]))
+        dispatch(changeTableLoading(false))
       })
       .catch((error) => {
         console.log(error, '出错了')
@@ -100,12 +104,16 @@ interface SongDetailType {
   hotSongListTable: any[]
   songDetail: any
   commentList: CommentListType
+  imageLoading: boolean
+  tableLoading: boolean
 }
 const initialState: SongDetailType = {
   hotSongList: [],
   hotSongListTable: [],
   songDetail: {},
-  commentList: {} as CommentListType
+  commentList: {} as CommentListType,
+  imageLoading: true,
+  tableLoading: true
 }
 const songDetailSlice = createSlice({
   name: 'songDetail',
@@ -115,14 +123,22 @@ const songDetailSlice = createSlice({
       state.hotSongList = payload
     },
     changeHotSongListTableAction(state, { payload }) {
+      state.hotSongListTable = []
       const res = new Set(payload)
       state.hotSongListTable = [...res]
     },
     changeSongDetailAction(state, { payload }) {
+      state.songDetail = {}
       state.songDetail = payload
     },
     changeCommentListAction(state, { payload }) {
       state.commentList = payload
+    },
+    changeImageLoading(state, { payload }) {
+      state.imageLoading = payload
+    },
+    changeTableLoading(state, { payload }) {
+      state.tableLoading = payload
     }
   }
 })
@@ -130,7 +146,9 @@ export const {
   changeHotSongListAction,
   changeHotSongListTableAction,
   changeSongDetailAction,
-  changeCommentListAction
+  changeCommentListAction,
+  changeImageLoading,
+  changeTableLoading
 } = songDetailSlice.actions
 
 export default songDetailSlice.reducer

@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { getRankingListApi } from '@/views/discover/c-pages/ranking/services'
+import { changeTableLoading } from '@/views/song_detail/store'
 
 export const fetchSongRankingListAction = createAsyncThunk(
   'song-ranking-list',
   (state, { dispatch }) => {
     getRankingListApi().then((res) => {
-      console.log(res.list)
       dispatch(changeRankingListAction(res.list))
     })
   }

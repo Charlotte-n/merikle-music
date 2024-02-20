@@ -19,6 +19,7 @@ import LyricDetailSlice from '@/views/lyric-detail/store/index'
 import SingleSingerDetailSlice from '@/views/singers-list/store/index'
 import AlbumDetailSlice from '@/views/album-detail/store/index'
 import LoginStore from '@/views/discover/c-pages/recommend/c-cpns/Login/store/index'
+import CommonStore from '@/store/modules/common'
 //持久化
 import {
   persistStore,
@@ -48,6 +49,7 @@ const SingersPersistConfig = {
 const LoginStorePersist = persistReducer(persistConfig, LoginStore)
 const DjRadioStorePersist = persistReducer(DjPersistConfig, DjRadioSlice)
 const SingersStorePersist = persistReducer(SingersPersistConfig, SingersSlice)
+
 //一些仓库片段
 const store = configureStore({
   reducer: {
@@ -64,7 +66,8 @@ const store = configureStore({
     LyricDetailSlice: LyricDetailSlice,
     SingleSingerDetailSlice: SingleSingerDetailSlice,
     AlbumDetailSlice: AlbumDetailSlice,
-    LoginStore: LoginStorePersist
+    LoginStore: LoginStorePersist,
+    CommonStore: CommonStore
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -73,14 +76,14 @@ const store = configureStore({
       }
     })
 })
-// const state = store.getState()
-// type StateType = typeof state
+
 //给hook添加类型
-type GetStateFnType = typeof store.getState
-export type IRootState = ReturnType<GetStateFnType>
-type DispatchType = typeof store.dispatch
-export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector
-export const useAppDispatch: (changeMessage: any) => DispatchType = useDispatch
+
+export type RootState = ReturnType<typeof store.getState>
+// 推断出类型: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 export const shallowEqualApp = shallowEqual
 export default store
 export const persistor = persistStore(store)

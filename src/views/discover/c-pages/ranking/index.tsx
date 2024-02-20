@@ -11,6 +11,7 @@ import {
 } from '@/views/song_detail/store'
 import { shallowEqual } from 'react-redux'
 import { useLocation, useSearchParams } from 'react-router-dom'
+import { Spin } from 'antd'
 
 interface IProps {
   children?: ReactNode
@@ -19,11 +20,6 @@ interface IProps {
 
 const Ranking = (props: any) => {
   //获取排行榜的数据
-  const { rankingId } = useAppSelector((state) => {
-    return {
-      rankingId: state.songRankingSlice.rankingId
-    }
-  }, shallowEqual)
   const [searchParam] = useSearchParams()
   const [songListId, setSongListId] = useState(searchParam.get('id') as string)
   const [pageIndex, setPageIndex] = useState(1)
@@ -31,8 +27,6 @@ const Ranking = (props: any) => {
   const getPageIndex = (val: number) => {
     setPageIndex(val)
   }
-  const location = useLocation()
-  //@ts-ignore
 
   const dispatch = useAppDispatch()
   const getId = (value: string) => {
@@ -50,6 +44,7 @@ const Ranking = (props: any) => {
       })
     )
   }, [songListId, pageIndex])
+
   return (
     <RankingWrapper className="wrap-v2">
       <div className="song_ranking">
